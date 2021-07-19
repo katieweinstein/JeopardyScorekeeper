@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 
 export default function Home({ navigation }) {
   return (
@@ -14,10 +14,10 @@ export default function Home({ navigation }) {
       <Pressable
         style={styles.button}
         onPress={() =>
-          navigation.navigate('Scoreboard', { name: 'Scoreboard' })
+          navigation.navigate('AddPlayers', { name: 'AddPlayers' })
         }
       >
-        <Text style={styles.text}>Play</Text>
+        <Text style={styles.text}>New Game</Text>
       </Pressable>
     </View>
   );
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
     backgroundColor: '#edb76f',
-    width: 100,
+    width: 275,
     height: 60,
     borderRadius: 10,
     borderColor: '#c7853d',

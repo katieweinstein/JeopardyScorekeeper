@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, Pressable, Alert } from 'react-native';
 
-export default function Scoreboard() {
+export default function AddPlayers() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>This is the scoreboard</Text>
+      <Text style={styles.text}>We will add players here.</Text>
     </View>
   );
 }
