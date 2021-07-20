@@ -8,6 +8,7 @@ import {
   Modal,
 } from 'react-native';
 import { addPlayerToDB } from '../api';
+import PlayerList from './PlayerList';
 
 export default function AddPlayers() {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -25,22 +26,25 @@ export default function AddPlayers() {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.text}>Add a new player:</Text>
-            <TextInput
-              style={styles.input}
-              onChangeText={setInput}
-              value={input}
-              autoCapitalize="words"
-            />
+            <View style={styles.inputView}>
+              <Text style={styles.text}>New player's name:</Text>
+              <TextInput
+                style={styles.input}
+                onChangeText={setInput}
+                value={input}
+                autoCapitalize="words"
+                maxLength={50}
+              />
+            </View>
             <View style={styles.buttonContainer}>
               <Pressable
-                style={styles.button}
+                style={styles.modalButton}
                 onPress={() => setModalVisible(!modalVisible)}
               >
                 <Text style={styles.text}>Cancel</Text>
               </Pressable>
               <Pressable
-                style={styles.button}
+                style={styles.modalButton}
                 onPress={function () {
                   addPlayerToDB(input);
                   setModalVisible(!modalVisible);
@@ -52,6 +56,7 @@ export default function AddPlayers() {
           </View>
         </View>
       </Modal>
+      <PlayerList />
       <Text style={styles.text}>We will add players here.</Text>
       <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
         <Text style={styles.text}>Add New Player</Text>
@@ -84,14 +89,34 @@ const styles = StyleSheet.create({
     padding: 20,
     maxHeight: 75,
   },
-  centeredView: {
+  inputView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  buttonContainer: {
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#9e99de',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    margin: 10,
+    padding: 10,
+    maxHeight: 75,
+    width: 120,
+  },
+  centeredView: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 100,
+  },
+  buttonContainer: {
+    flex: 0.75,
+    justifyContent: 'space-around',
+    alignItems: 'center',
     flexDirection: 'row',
   },
   modalView: {
@@ -110,13 +135,15 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   input: {
-    height: 40,
-    width: 200,
-    margin: 10,
+    height: 50,
+    width: 250,
+    marginTop: 20,
+    marginBottom: 20,
     padding: 10,
     borderWidth: 1,
     borderColor: 'grey',
     borderRadius: 10,
     backgroundColor: 'white',
+    fontSize: 24,
   },
 });
