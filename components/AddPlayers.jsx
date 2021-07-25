@@ -7,7 +7,7 @@ import {
   TextInput,
   Modal,
 } from 'react-native';
-import { addPlayerToDB } from '../api';
+import { getPlayers, addPlayerToDB } from '../api/players';
 import PlayerList from './PlayerList';
 
 export default function AddPlayers() {
@@ -47,6 +47,7 @@ export default function AddPlayers() {
                 style={styles.modalButton}
                 onPress={function () {
                   addPlayerToDB(input);
+                  getPlayers();
                   setModalVisible(!modalVisible);
                 }}
               >
@@ -57,7 +58,6 @@ export default function AddPlayers() {
         </View>
       </Modal>
       <PlayerList />
-      <Text style={styles.text}>We will add players here.</Text>
       <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
         <Text style={styles.text}>Add New Player</Text>
       </Pressable>
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#425896',
     alignItems: 'center',
-    justifyContent: 'center',
   },
   text: {
     color: 'white',
