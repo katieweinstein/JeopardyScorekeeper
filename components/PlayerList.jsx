@@ -1,26 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
-import { getPlayers, players } from '../api/players';
+import { getPlayers } from '../api/players';
 
-export default function PlayerList() {
-  const [playersList, setPlayersList] = React.useState(players);
-
+export default function PlayerList({ playersList, setPlayersList }) {
   React.useEffect(() => {
-    getPlayers();
-    setPlayersList(players);
-    console.log('Players in component: ', playersList);
-  }, [players]);
+    getPlayers(setPlayersList);
+  }, []);
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.flatList}
         data={playersList}
-        renderItem={({ item, index, separators }) => (
-          <Text key={index} style={styles.text}>
-            {item}
-          </Text>
-        )}
+        keyExtractor={(item) => item.user_id.toString()}
+        renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
       />
     </View>
   );

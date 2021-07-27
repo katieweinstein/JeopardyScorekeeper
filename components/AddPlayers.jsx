@@ -13,6 +13,7 @@ import PlayerList from './PlayerList';
 export default function AddPlayers() {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [input, setInput] = React.useState('');
+  const [playersList, setPlayersList] = React.useState([]);
 
   return (
     <View style={styles.container}>
@@ -45,9 +46,9 @@ export default function AddPlayers() {
               </Pressable>
               <Pressable
                 style={styles.modalButton}
-                onPress={function () {
+                onPress={() => {
                   addPlayerToDB(input);
-                  getPlayers();
+                  getPlayers(setPlayersList);
                   setModalVisible(!modalVisible);
                 }}
               >
@@ -57,7 +58,7 @@ export default function AddPlayers() {
           </View>
         </View>
       </Modal>
-      <PlayerList />
+      <PlayerList playersList={playersList} setPlayersList={setPlayersList} />
       <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
         <Text style={styles.text}>Add New Player</Text>
       </Pressable>
