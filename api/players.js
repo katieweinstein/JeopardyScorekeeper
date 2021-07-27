@@ -1,5 +1,14 @@
 import * as SQLite from 'expo-sqlite';
 
+/* ONLY USE IN DEV ENVIRONMENT TO REMOVE DATABASE AND START FROM SCRATCH */
+// const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+// db.transaction(
+//   (tx) => tx.executeSql('DROP TABLE Player', []),
+//   (err) =>
+//     console.log('Oops, something went wrong creating the Player table: ', err),
+//   () => console.log('Player table successfully created.')
+// );
+
 (function createPlayerTable() {
   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
@@ -36,6 +45,20 @@ export function addPlayerToDB(name) {
     },
     (err) => console.log('Oops, something went wrong adding a player: ', err),
     () => console.log('Player successfully added to table.')
+  );
+}
+
+export function deletePlayer(id) {
+  const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+  db.transaction(
+    (tx) => {
+      tx.executeSql('DELETE FROM Player WHERE id = ?', [id], () => {
+        console.log('Player removed from table.');
+      });
+    },
+    (err) =>
+      console.log('Oops, something went wrong deleting this player: ', err),
+    () => console.log('Player deleted and transaction complete.')
   );
 }
 

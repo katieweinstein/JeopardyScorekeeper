@@ -1,20 +1,82 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
-import { getPlayers } from '../api/players';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  StatusBar,
+  Modal,
+  Pressable,
+} from 'react-native';
+import { getPlayers, deletePlayer } from '../api/players';
 
 export default function PlayerList({ playersList, setPlayersList }) {
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [playerToDelete, setPlayerToDelete] = React.useState('');
+
   React.useEffect(() => {
     getPlayers(setPlayersList);
   }, []);
 
+  const nameItem = (item) => (
+    <View style={styles.nameContainer}>
+      <Text style={styles.text}>{item.name}</Text>
+      <Pressable
+        onPress={() => {
+          setModalVisible(true);
+          setPlayerToDelete(item);
+        }}
+        style={styles.deleteButton}
+      />
+    </View>
+  );
+
   return (
     <View style={styles.container}>
-      <FlatList
-        style={styles.flatList}
-        data={playersList}
-        keyExtractor={(item) => item.user_id.toString()}
-        renderItem={({ item }) => <Text style={styles.text}>{item.name}</Text>}
-      />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(!modalVisible);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Are you sure you would like to delete {playerToDelete.name}? This
+              will permanently and irreversibly remove this player and their
+              game history.
+            </Text>
+            <View style={styles.buttonContainer}>
+              <Pressable
+                style={styles.modalButton}
+                onPress={() => setModalVisible(!modalVisible)}
+              >
+                <Text style={styles.modalText}>No</Text>
+              </Pressable>
+              <Pressable
+                style={styles.modalButton}
+                onPress={() => {
+                  deletePlayer(playerToDelete.id);
+                  getPlayers(setPlayersList);
+                  setModalVisible(!modalVisible);
+                }}
+              >
+                <Text style={styles.modalText}>Yes</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+      <View style={styles.container}>
+        <FlatList
+          style={styles.flatList}
+          data={playersList}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => nameItem(item)}
+        />
+      </View>
     </View>
   );
 }
@@ -25,10 +87,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: StatusBar.currentHeight || 0,
   },
+  nameContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
   text: {
     color: 'white',
     fontFamily: 'Trebuchet MS',
     fontSize: 36,
+  },
+  deleteButton: {
+    alignItems: 'center',
+    backgroundColor: 'red',
+    width: 20,
+    height: 5,
+  },
+  modalText: {
+    color: 'white',
+    fontFamily: 'Trebuchet MS',
+    fontSize: 24,
+    textAlign: 'center',
   },
   flatList: {
     backgroundColor: '#231d5b',
@@ -40,5 +120,59 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#edc8a2',
     borderRadius: 20,
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#9e99de',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    margin: 10,
+    padding: 20,
+    maxHeight: 75,
+  },
+  modalButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#9e99de',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    marginTop: 20,
+    marginLeft: 20,
+    marginRight: 20,
+    padding: 10,
+    width: 120,
+    height: 50,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 100,
+  },
+  buttonContainer: {
+    flex: 0.75,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: '#8180c2',
+    borderRadius: 20,
+    padding: 35,
+    height: 300,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
   },
 });
