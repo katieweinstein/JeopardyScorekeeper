@@ -10,24 +10,55 @@ import {
 } from 'react-native';
 import { getPlayers, deletePlayer } from '../api/players';
 
-export default function PlayerList({ playersList, setPlayersList }) {
+export default function PlayerList({
+  playersList,
+  setPlayersList,
+  playersInGame,
+  setPlayersInGame,
+}) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [playerToDelete, setPlayerToDelete] = React.useState('');
 
   React.useEffect(() => {
     getPlayers(setPlayersList);
+    playersList.forEach((player) => (player.selected = false));
   }, []);
 
+  function selectPlayers(item) {
+    if (item.selected) {
+      item.selected = !item.selected;
+      setPlayersInGame(playersInGame.filter((player) => player !== item));
+    } else {
+      if (playersInGame.length < 6) {
+        item.selected = !item.selected;
+        setPlayersInGame([...playersInGame, item]);
+      } else {
+        console.log('Too many players!');
+      }
+    }
+  }
+
+  // Item to be created for each element in the flat list - includes delete button
   const nameItem = (item) => (
-    <View style={styles.nameContainer}>
-      <Text style={styles.text}>{item.name}</Text>
+    <View
+      style={
+        (styles.nameContainer,
+        { backgroundColor: item.selected ? 'green' : 'transparent' })
+      }
+    >
       <Pressable
-        onPress={() => {
-          setModalVisible(true);
-          setPlayerToDelete(item);
-        }}
-        style={styles.deleteButton}
-      />
+        onPress={() => selectPlayers(item)}
+        style={styles.nameContainer}
+      >
+        <Text style={styles.text}>{item.name}</Text>
+        <Pressable
+          onPress={() => {
+            setModalVisible(true);
+            setPlayerToDelete(item);
+          }}
+          style={styles.deleteButton}
+        />
+      </Pressable>
     </View>
   );
 
@@ -76,9 +107,14 @@ export default function PlayerList({ playersList, setPlayersList }) {
           keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => nameItem(item)}
         />
+        <Text style={styles.tooManyPlayers}>Max 6 players per game.</Text>
       </View>
     </View>
   );
+}
+
+function tooManyPlayers(display) {
+  return;
 }
 
 const styles = StyleSheet.create({
@@ -103,6 +139,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'red',
     width: 20,
     height: 5,
+    marginRight: 10,
   },
   modalText: {
     color: 'white',
@@ -112,7 +149,8 @@ const styles = StyleSheet.create({
   },
   flatList: {
     backgroundColor: '#231d5b',
-    margin: 50,
+    marginTop: 50,
+    marginBottom: 10,
     padding: 10,
     flexGrow: 0,
     width: 300,
@@ -120,6 +158,15 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#edc8a2',
     borderRadius: 20,
+  },
+  tooManyPlayers: {
+    display: 'flex',
+    color: 'white',
+    fontFamily: 'Trebuchet MS',
+    fontSize: 18,
+    marginLeft: 20,
+    marginRight: 20,
+    textAlign: 'center',
   },
   button: {
     alignItems: 'center',
