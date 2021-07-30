@@ -1,69 +1,20 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  TextInput,
-  Modal,
-} from 'react-native';
-import { getPlayers, addPlayerToDB } from '../api/players';
-import PlayerList from './PlayerList';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { AddPlayersModal, PlayerList } from './index';
 
 export default function AddPlayers() {
   const [modalVisible, setModalVisible] = React.useState(false);
-  const [input, setInput] = React.useState('');
   const [playersList, setPlayersList] = React.useState([]);
   const [playersInGame, setPlayersInGame] = React.useState([]);
 
   return (
     <View style={styles.container}>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <View style={styles.inputView}>
-              <Text style={styles.text}>New player's name:</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={setInput}
-                value={input}
-                autoCapitalize="words"
-                maxLength={15}
-              />
-            </View>
-            <View style={styles.buttonContainer}>
-              <Pressable
-                style={styles.modalButton}
-                onPress={() => {
-                  setModalVisible(!modalVisible);
-                  setInput('');
-                }}
-              >
-                <Text style={styles.text}>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={styles.modalButton}
-                onPress={() => {
-                  addPlayerToDB(input);
-                  getPlayers(setPlayersList);
-                  setPlayersInGame([]);
-                  setModalVisible(!modalVisible);
-                  setInput('');
-                }}
-              >
-                <Text style={styles.text}>Add</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <AddPlayersModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        setPlayersList={setPlayersList}
+        setPlayersInGame={setPlayersInGame}
+      />
       <View style={styles.container}>
         <PlayerList
           playersList={playersList}

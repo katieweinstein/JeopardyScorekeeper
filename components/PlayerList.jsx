@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  StatusBar,
-  Modal,
-  Pressable,
-} from 'react-native';
-import { getPlayers, deletePlayer } from '../api/players';
+import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native';
+import { getPlayers } from '../api/players';
+import { DeletePlayerModal } from './index';
 
 export default function PlayerList({
   playersList,
@@ -58,49 +51,21 @@ export default function PlayerList({
             setPlayerToDelete(item);
           }}
           style={styles.deleteButton}
-        />
+        >
+          <Text style={{ color: 'white' }}>-</Text>
+        </Pressable>
       </Pressable>
     </View>
   );
 
   return (
     <View style={{ marginBottom: 20 }}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-              Are you sure you would like to delete {playerToDelete.name}? This
-              will permanently and irreversibly remove this player and their
-              game history.
-            </Text>
-            <View style={styles.buttonContainer}>
-              <Pressable
-                style={styles.modalButton}
-                onPress={() => setModalVisible(!modalVisible)}
-              >
-                <Text style={styles.modalText}>No</Text>
-              </Pressable>
-              <Pressable
-                style={styles.modalButton}
-                onPress={() => {
-                  deletePlayer(playerToDelete.id);
-                  getPlayers(setPlayersList);
-                  setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.modalText}>Yes</Text>
-              </Pressable>
-            </View>
-          </View>
-        </View>
-      </Modal>
+      <DeletePlayerModal
+        modalVisible={modalVisible}
+        setModalVisible={setModalVisible}
+        playerToDelete={playerToDelete}
+        setPlayersList={setPlayersList}
+      />
       <FlatList
         style={styles.flatList}
         data={playersList}
@@ -110,10 +75,6 @@ export default function PlayerList({
       <Text style={styles.tooManyPlayers}>Max 6 players per game.</Text>
     </View>
   );
-}
-
-function tooManyPlayers(display) {
-  return;
 }
 
 const styles = StyleSheet.create({
@@ -130,16 +91,12 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: 'red',
     width: 20,
-    height: 5,
+    height: 20,
     marginRight: 10,
-  },
-  modalText: {
-    color: 'white',
-    fontFamily: 'Trebuchet MS',
-    fontSize: 24,
-    textAlign: 'center',
+    borderRadius: 20,
   },
   flatList: {
     backgroundColor: '#231d5b',
@@ -174,47 +131,5 @@ const styles = StyleSheet.create({
     margin: 10,
     padding: 20,
     maxHeight: 75,
-  },
-  modalButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    backgroundColor: '#9e99de',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 3,
-    marginTop: 20,
-    marginLeft: 20,
-    marginRight: 20,
-    padding: 10,
-    width: 120,
-    height: 50,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 100,
-  },
-  buttonContainer: {
-    flex: 0.75,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: '#8180c2',
-    borderRadius: 20,
-    padding: 35,
-    height: 300,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
   },
 });
