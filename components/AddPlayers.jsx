@@ -19,7 +19,7 @@ export default function AddPlayers() {
   return (
     <View style={styles.container}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -35,13 +35,16 @@ export default function AddPlayers() {
                 onChangeText={setInput}
                 value={input}
                 autoCapitalize="words"
-                maxLength={50}
+                maxLength={15}
               />
             </View>
             <View style={styles.buttonContainer}>
               <Pressable
                 style={styles.modalButton}
-                onPress={() => setModalVisible(!modalVisible)}
+                onPress={() => {
+                  setModalVisible(!modalVisible);
+                  setInput('');
+                }}
               >
                 <Text style={styles.text}>Cancel</Text>
               </Pressable>
@@ -52,6 +55,7 @@ export default function AddPlayers() {
                   getPlayers(setPlayersList);
                   setPlayersInGame([]);
                   setModalVisible(!modalVisible);
+                  setInput('');
                 }}
               >
                 <Text style={styles.text}>Add</Text>
@@ -60,15 +64,28 @@ export default function AddPlayers() {
           </View>
         </View>
       </Modal>
-      <PlayerList
-        playersList={playersList}
-        setPlayersList={setPlayersList}
-        playersInGame={playersInGame}
-        setPlayersInGame={setPlayersInGame}
-      />
-      <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
-        <Text style={styles.text}>Add New Player</Text>
-      </Pressable>
+      <View style={styles.container}>
+        <PlayerList
+          playersList={playersList}
+          setPlayersList={setPlayersList}
+          playersInGame={playersInGame}
+          setPlayersInGame={setPlayersInGame}
+        />
+        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
+          <Text style={styles.text}>Add New Player</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => console.log('Starting game.')}
+          style={
+            playersInGame.length
+              ? styles.startGameButton
+              : styles.disabledButton
+          }
+          disabled={!playersInGame.length}
+        >
+          <Text style={styles.text}>Start Game</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -89,6 +106,30 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     color: 'white',
     backgroundColor: '#9e99de',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    margin: 10,
+    padding: 20,
+    maxHeight: 75,
+  },
+  startGameButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#c7853d',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    margin: 10,
+    padding: 20,
+    maxHeight: 75,
+  },
+  disabledButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: 'grey',
     borderRadius: 10,
     borderColor: 'white',
     borderWidth: 3,

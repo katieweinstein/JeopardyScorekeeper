@@ -24,6 +24,7 @@ export default function PlayerList({
     playersList.forEach((player) => (player.selected = false));
   }, []);
 
+  // Add players to the list for the current game
   function selectPlayers(item) {
     if (item.selected) {
       item.selected = !item.selected;
@@ -43,7 +44,7 @@ export default function PlayerList({
     <View
       style={
         (styles.nameContainer,
-        { backgroundColor: item.selected ? 'green' : 'transparent' })
+        { backgroundColor: item.selected ? '#6961ad' : 'transparent' })
       }
     >
       <Pressable
@@ -63,7 +64,7 @@ export default function PlayerList({
   );
 
   return (
-    <View style={styles.container}>
+    <View style={{ marginBottom: 20 }}>
       <Modal
         animationType="slide"
         transparent={true}
@@ -100,15 +101,13 @@ export default function PlayerList({
           </View>
         </View>
       </Modal>
-      <View style={styles.container}>
-        <FlatList
-          style={styles.flatList}
-          data={playersList}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => nameItem(item)}
-        />
-        <Text style={styles.tooManyPlayers}>Max 6 players per game.</Text>
-      </View>
+      <FlatList
+        style={styles.flatList}
+        data={playersList}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => nameItem(item)}
+      />
+      <Text style={styles.tooManyPlayers}>Max 6 players per game.</Text>
     </View>
   );
 }
@@ -118,11 +117,6 @@ function tooManyPlayers(display) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: StatusBar.currentHeight || 0,
-  },
   nameContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -151,13 +145,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#231d5b',
     marginTop: 50,
     marginBottom: 10,
-    padding: 10,
+    paddingLeft: 10,
+    paddingBottom: 20,
     flexGrow: 0,
     width: 300,
     height: 300,
     borderWidth: 2,
     borderColor: '#edc8a2',
-    borderRadius: 20,
+    borderRadius: 10,
   },
   tooManyPlayers: {
     display: 'flex',
