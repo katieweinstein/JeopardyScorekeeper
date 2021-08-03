@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, Pressable } from 'react-native';
 import { getPlayers } from '../api/players';
-import { DeletePlayerModal } from './index';
+import DeletePlayerModal from './DeletePlayerModal';
 
 export default function PlayerList({
   playersList,
@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Trebuchet MS',
     fontSize: 36,
+    paddingLeft: 5,
   },
   deleteButton: {
     alignItems: 'center',
@@ -102,7 +103,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#231d5b',
     marginTop: 50,
     marginBottom: 10,
-    paddingLeft: 10,
+    padding: 5,
+    // paddingTop: 5,
+    // paddingLeft: 5,
+    // paddingRight: 5,
     paddingBottom: 20,
     flexGrow: 0,
     width: 300,

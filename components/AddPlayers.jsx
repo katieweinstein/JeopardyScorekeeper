@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import { AddPlayersModal, PlayerList } from './index';
+import AddPlayersModal from './AddPlayersModal';
+import PlayerList from './PlayerList';
 
-export default function AddPlayers() {
+export default function AddPlayers({ navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);
   const [playersList, setPlayersList] = React.useState([]);
   const [playersInGame, setPlayersInGame] = React.useState([]);
@@ -26,7 +27,9 @@ export default function AddPlayers() {
           <Text style={styles.text}>Add New Player</Text>
         </Pressable>
         <Pressable
-          onPress={() => console.log('Starting game.')}
+          onPress={() =>
+            navigation.navigate('GameDetails', { playersInGame: playersInGame })
+          }
           style={
             playersInGame.length
               ? styles.startGameButton
@@ -34,7 +37,7 @@ export default function AddPlayers() {
           }
           disabled={!playersInGame.length}
         >
-          <Text style={styles.text}>Start Game</Text>
+          <Text style={styles.text}>Next</Text>
         </Pressable>
       </View>
     </View>

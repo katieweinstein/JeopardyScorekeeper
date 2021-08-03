@@ -4,3 +4,4 @@ export { default as Scoreboard } from './Scoreboard';
 export { default as AddPlayersModal } from './AddPlayersModal';
 export { default as DeletePlayerModal } from './DeletePlayerModal';
 export { default as PlayerList } from './PlayerList';
+export { default as GameDetails } from './GameDetails';

@@ -1,14 +1,5 @@
 import * as SQLite from 'expo-sqlite';
 
-/* ONLY USE IN DEV ENVIRONMENT TO REMOVE DATABASE AND START FROM SCRATCH */
-// const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
-// db.transaction(
-//   (tx) => tx.executeSql('DROP TABLE Player', []),
-//   (err) =>
-//     console.log('Oops, something went wrong creating the Player table: ', err),
-//   () => console.log('Player table successfully created.')
-// );
-
 export function addPlayerToDB(name) {
   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
