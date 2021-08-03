@@ -9,24 +9,6 @@ import * as SQLite from 'expo-sqlite';
 //   () => console.log('Player table successfully created.')
 // );
 
-(function createPlayerTable() {
-  const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
-  db.transaction(
-    (tx) => {
-      tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS Player(id INTEGER PRIMARY KEY NOT NULL, name VARCHAR(30))',
-        []
-      );
-    },
-    (err) =>
-      console.log(
-        'Oops, something went wrong creating the Player table: ',
-        err
-      ),
-    () => console.log('Player table successfully created.')
-  );
-})();
-
 export function addPlayerToDB(name) {
   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
