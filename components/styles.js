@@ -5,13 +5,11 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#425896',
     alignItems: 'center',
-    paddingTop: 20,
   },
   logo: {
     width: '85%',
     height: '20%',
     resizeMode: 'contain',
-    marginTop: 100,
   },
   inputView: {
     flex: 1,
@@ -65,7 +63,7 @@ export const styles = StyleSheet.create({
   },
   flatList: {
     backgroundColor: '#231d5b',
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 10,
     padding: 5,
     paddingBottom: 20,

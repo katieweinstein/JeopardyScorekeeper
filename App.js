@@ -35,14 +35,20 @@ export default function App() {
           name="AddPlayers"
           component={AddPlayers}
           options={{
-            headerShown: false,
+            headerTransparent: true,
+            headerTitle: '',
+            headerTitleStyle: { color: 'white' },
+            headerTintColor: 'white',
           }}
         />
         <Stack.Screen
           name="GameDetails"
           component={GameDetails}
           options={{
-            headerShown: false,
+            headerTransparent: true,
+            headerTitle: '',
+            headerTitleStyle: { color: 'white' },
+            headerTintColor: 'white',
           }}
         />
       </Stack.Navigator>

@@ -5,7 +5,7 @@ import { styles, buttons, text } from './styles';
 
 export default function Home({ navigation }) {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { justifyContent: 'center' }]}>
       <Image
         source={require('../images/jeopardy-logo.png')}
         style={styles.logo}
