@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { Text, View, Pressable } from 'react-native';
 import AddPlayersModal from './AddPlayersModal';
 import PlayerList from './PlayerList';
+import { styles, buttons, text } from './styles';
 
 export default function AddPlayers({ navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);
@@ -23,129 +24,24 @@ export default function AddPlayers({ navigation }) {
           playersInGame={playersInGame}
           setPlayersInGame={setPlayersInGame}
         />
-        <Pressable onPress={() => setModalVisible(true)} style={styles.button}>
-          <Text style={styles.text}>Add New Player</Text>
+        <Pressable
+          onPress={() => setModalVisible(true)}
+          style={buttons.addPlayerButton}
+        >
+          <Text style={text.buttonText}>Add New Player</Text>
         </Pressable>
         <Pressable
           onPress={() =>
             navigation.navigate('GameDetails', { playersInGame: playersInGame })
           }
           style={
-            playersInGame.length
-              ? styles.startGameButton
-              : styles.disabledButton
+            playersInGame.length ? buttons.nextButton : buttons.disabledButton
           }
           disabled={!playersInGame.length}
         >
-          <Text style={styles.text}>Next</Text>
+          <Text style={text.buttonText}>Next</Text>
         </Pressable>
       </View>
     </View>
   );
 }
-
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#425896',
-    alignItems: 'center',
-  },
-  text: {
-    color: 'white',
-    fontFamily: 'Trebuchet MS',
-    fontSize: 24,
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    backgroundColor: '#9e99de',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 3,
-    margin: 10,
-    padding: 20,
-    maxHeight: 75,
-  },
-  startGameButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    backgroundColor: '#c7853d',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 3,
-    margin: 10,
-    padding: 20,
-    maxHeight: 75,
-  },
-  disabledButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    backgroundColor: 'grey',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 3,
-    margin: 10,
-    padding: 20,
-    maxHeight: 75,
-  },
-  inputView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    backgroundColor: '#9e99de',
-    borderRadius: 10,
-    borderColor: 'white',
-    borderWidth: 3,
-    margin: 10,
-    padding: 10,
-    maxHeight: 75,
-    width: 120,
-  },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 100,
-  },
-  buttonContainer: {
-    flex: 0.75,
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    flexDirection: 'row',
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: '#8180c2',
-    borderRadius: 20,
-    padding: 35,
-    height: 300,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-  },
-  input: {
-    height: 50,
-    width: 250,
-    marginTop: 20,
-    marginBottom: 20,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'grey',
-    borderRadius: 10,
-    backgroundColor: 'white',
-    fontSize: 24,
-  },
-});
