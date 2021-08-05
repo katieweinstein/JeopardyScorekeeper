@@ -3,7 +3,7 @@ import { Text, View, Pressable, TextInput } from 'react-native';
 import { addGameToDB } from '../api/games';
 import { styles, buttons, text } from './styles';
 
-export default function GameDetails({ route }) {
+export default function GameDetails({ route, navigation }) {
   const [episodeNumberInput, setEpisodeNumberInput] = React.useState('');
   const [nicknameInput, setNicknameInput] = React.useState('');
 
@@ -26,13 +26,16 @@ export default function GameDetails({ route }) {
         maxLength={30}
       />
       <Pressable
-        onPress={() =>
+        onPress={() => {
           addGameToDB(
             route.params.playersInGame,
             episodeNumberInput,
             nicknameInput
-          )
-        }
+          );
+          navigation.navigate('Scoreboard', {
+            playersInGame: route.params.playersInGame,
+          });
+        }}
         style={buttons.nextButton}
       >
         <Text style={text.buttonText}>Start Game</Text>

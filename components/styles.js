@@ -93,7 +93,7 @@ export const text = StyleSheet.create({
     fontSize: 36,
     paddingLeft: 5,
   },
-  maxPlayers: {
+  smallCentered: {
     display: 'flex',
     color: 'white',
     fontFamily: 'Trebuchet MS',
@@ -141,7 +141,7 @@ export const buttons = StyleSheet.create({
     color: 'white',
     backgroundColor: '#c7853d',
     borderRadius: 10,
-    borderColor: 'white',
+    borderColor: '#edc8a2',
     borderWidth: 3,
     margin: 10,
     padding: 20,
@@ -195,5 +195,15 @@ export const buttons = StyleSheet.create({
     height: 20,
     marginRight: 10,
     borderRadius: 20,
+  },
+  playerButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#9E99DE',
+    borderRadius: 20,
+    width: 120,
+    padding: 10,
+    margin: 5,
   },
 });

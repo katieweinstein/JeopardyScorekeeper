@@ -1,5 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 
+export let currentGameId = -1;
+
 function createPlayerArray(players) {
   let playerArray = [];
   for (let i = 0; i < 6; i++) {
@@ -31,11 +33,42 @@ export function addGameToDB(players, episode, nickname) {
           nickname,
         ],
         (tx, resultSet) => {
-          console.log('Game added to table: ', resultSet);
+          currentGameId = resultSet.insertId;
+          console.log('Game added to table: ', resultSet.insertId);
         }
       );
     },
     (err) => console.log('Oops, something went wrong adding a game: ', err),
     () => console.log('Game successfully added to table.')
+  );
+}
+
+export function getCurrentGameInfo(setGameInfo) {
+  const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+  db.transaction(
+    (tx) => {
+      tx.executeSql(
+        'SELECT * FROM Game WHERE id = ?',
+        [currentGameId],
+        (tx, resultSet) => {
+          console.log('Game info: ', resultSet.rows._array);
+          const data = resultSet.rows._array;
+          let playerArray = [];
+          for (let prop in data) {
+            if (prop.includes('player') && data[prop] !== null) {
+              playerArray.push(data[prop].parseInt());
+            }
+          }
+          setGameInfo({ gameId: data.id, players: playerArray });
+          console.log('Player Array: ', playerArray);
+        }
+      );
+    },
+    (err) =>
+      console.log(
+        'Oops, something went wrong getting the current game info: ',
+        err
+      ),
+    () => console.log('Game info obtained.')
   );
 }

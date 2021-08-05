@@ -73,7 +73,7 @@ export default function PlayerList({
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => nameItem(item)}
       />
-      <Text style={text.maxPlayers}>Max 6 players per game.</Text>
+      <Text style={text.smallCentered}>Max 6 players per game.</Text>
     </View>
   );
 }
