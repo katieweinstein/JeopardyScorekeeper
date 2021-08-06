@@ -32,7 +32,7 @@ export default function AddPlayersModal({
               maxLength={15}
             />
           </View>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonRowContainer}>
             <Pressable
               style={buttons.modalButton}
               onPress={() => {

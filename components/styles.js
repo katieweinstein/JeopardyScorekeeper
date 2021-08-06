@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 100,
   },
-  buttonContainer: {
+  buttonRowContainer: {
     flex: 0.75,
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -73,6 +73,18 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#edc8a2',
     borderRadius: 10,
+  },
+  scoreboardButtonContainer: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginTop: 10,
+    borderColor: 'red',
+    borderWidth: 2,
   },
 });
 
@@ -202,8 +214,18 @@ export const buttons = StyleSheet.create({
     color: 'white',
     backgroundColor: '#9E99DE',
     borderRadius: 20,
-    width: 120,
-    padding: 10,
+    width: 175,
+    padding: 5,
+    margin: 5,
+  },
+  scoreButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#DFC74F',
+    borderRadius: 20,
+    width: 150,
+    padding: 20,
     margin: 5,
   },
 });

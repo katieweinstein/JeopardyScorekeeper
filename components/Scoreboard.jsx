@@ -1,7 +1,8 @@
 import React from 'react';
-import { Text, View, Image, Pressable, Alert } from 'react-native';
+import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
 import { currentGameId, getCurrentGameInfo } from '../api/games';
+import Scoring from './Scoring';
 
 export default function Scoreboard({ route }) {
   const [gameInfo, setGameInfo] = React.useState({
@@ -24,17 +25,18 @@ export default function Scoreboard({ route }) {
   return (
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <Text style={text.mainText}>Players</Text>
-      <View style={[styles.buttonContainer, { alignItems: 'flex-start' }]}>
+      <View style={styles.scoreboardButtonContainer}>
         {gameInfo.players.length ? (
           gameInfo.players.map((item) => (
             <Pressable key={item.id} style={buttons.playerButton}>
-              <Text style={text.mainText}>{item.name}</Text>
+              <Text style={text.buttonText}>{item.name}</Text>
             </Pressable>
           ))
         ) : (
           <Text styles={text.smallCentered}>Loading...</Text>
         )}
       </View>
+      <Scoring />
     </View>
   );
 }
