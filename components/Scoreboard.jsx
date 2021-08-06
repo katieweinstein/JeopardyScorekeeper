@@ -11,8 +11,10 @@ export default function Scoreboard({ route }) {
   });
   const [moveInfo, setMoveInfo] = React.useState({
     player: '',
-    score: 0,
+    score: 1,
   });
+  const [scores, setScores] = React.useState([200, 400, 600, 800, 1000]);
+  const [double, setDouble] = React.useState(false);
 
   React.useEffect(() => {
     setGameInfo({
@@ -28,7 +30,16 @@ export default function Scoreboard({ route }) {
       <View style={styles.scoreboardButtonContainer}>
         {gameInfo.players.length ? (
           gameInfo.players.map((item) => (
-            <Pressable key={item.id} style={buttons.playerButton}>
+            <Pressable
+              key={item.id}
+              style={[
+                buttons.playerButton,
+                moveInfo.player === item
+                  ? { borderColor: 'white' }
+                  : { borderColor: '#9E99DE' },
+              ]}
+              onPress={() => setMoveInfo({ ...moveInfo, player: item })}
+            >
               <Text style={text.buttonText}>{item.name}</Text>
             </Pressable>
           ))
@@ -36,7 +47,14 @@ export default function Scoreboard({ route }) {
           <Text styles={text.smallCentered}>Loading...</Text>
         )}
       </View>
-      <Scoring />
+      <Scoring
+        scores={scores}
+        setScores={setScores}
+        double={double}
+        setDouble={setDouble}
+        moveInfo={moveInfo}
+        setMoveInfo={setMoveInfo}
+      />
     </View>
   );
 }
