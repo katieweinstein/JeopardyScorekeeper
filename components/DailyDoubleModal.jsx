@@ -1,10 +1,12 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput, Modal } from 'react-native';
 import { styles, buttons, text } from './styles';
+import { addMoveToDB } from '../api/move';
 
 export default function DailyDoubleModal({
   moveInfo,
   setMoveInfo,
+  gameInfo,
   modalVisible,
   setModalVisible,
 }) {
@@ -44,6 +46,12 @@ export default function DailyDoubleModal({
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => {
+                setMoveInfo({ ...moveInfo, score: input * -1 });
+                addMoveToDB(
+                  moveInfo.player.id,
+                  gameInfo.gameId,
+                  moveInfo.score
+                );
                 setModalVisible(!modalVisible);
                 setInput('');
               }}
@@ -53,6 +61,12 @@ export default function DailyDoubleModal({
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => {
+                setMoveInfo({ ...moveInfo, score: input });
+                addMoveToDB(
+                  moveInfo.player.id,
+                  gameInfo.gameId,
+                  moveInfo.score
+                );
                 setModalVisible(!modalVisible);
                 setInput('');
               }}

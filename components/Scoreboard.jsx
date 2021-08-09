@@ -2,6 +2,7 @@ import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
 import { currentGameId, getCurrentGameInfo } from '../api/games';
+import { addMoveToDB } from '../api/move';
 import Scoring from './Scoring';
 
 export default function Scoreboard({ route }) {
@@ -21,7 +22,6 @@ export default function Scoreboard({ route }) {
       gameId: currentGameId,
       players: route.params.playersInGame,
     });
-    console.log(gameInfo);
   }, []);
 
   return (
@@ -54,7 +54,17 @@ export default function Scoreboard({ route }) {
         setDouble={setDouble}
         moveInfo={moveInfo}
         setMoveInfo={setMoveInfo}
+        gameInfo={gameInfo}
+        setGameInfo={setGameInfo}
       />
+      <Pressable
+        style={buttons.submitScore}
+        onPress={() =>
+          addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score)
+        }
+      >
+        <Text style={text.buttonText}>Submit</Text>
+      </Pressable>
     </View>
   );
 }

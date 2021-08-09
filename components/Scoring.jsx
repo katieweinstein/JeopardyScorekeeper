@@ -10,6 +10,7 @@ export default function Scoring({
   setDouble,
   moveInfo,
   setMoveInfo,
+  gameInfo,
 }) {
   const [modalVisible, setModalVisible] = React.useState(false);
 
@@ -18,6 +19,7 @@ export default function Scoring({
       <DailyDoubleModal
         moveInfo={moveInfo}
         setMoveInfo={setMoveInfo}
+        gameInfo={gameInfo}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
@@ -39,7 +41,7 @@ export default function Scoring({
             setMoveInfo({ ...moveInfo, score: moveInfo.score * -1 });
           }}
         >
-          <Text style={text.buttonText}>-</Text>
+          <Text style={text.smallCentered}>—</Text>
         </Pressable>
         <Pressable style={buttons.doubleJeopardy}>
           <Text style={text.smallCentered}>Double Jeopardy</Text>
