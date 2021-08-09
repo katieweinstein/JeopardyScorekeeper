@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
 import { currentGameId, getCurrentGameInfo } from '../api/games';
-import { addMoveToDB } from '../api/move';
+import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
 
-export default function Scoreboard({ route }) {
+export default function Scoreboard({ route, navigation }) {
   const [gameInfo, setGameInfo] = React.useState({
     gameId: -1,
     players: [],
@@ -25,9 +25,8 @@ export default function Scoreboard({ route }) {
   }, []);
 
   return (
-    <View style={[styles.container, { justifyContent: 'center' }]}>
-      <Text style={text.mainText}>Players</Text>
-      <View style={styles.scoreboardButtonContainer}>
+    <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
+      <View style={[styles.scoreboardButtonContainer, { marginTop: 15 }]}>
         {gameInfo.players.length ? (
           gameInfo.players.map((item) => (
             <Pressable
@@ -65,6 +64,21 @@ export default function Scoreboard({ route }) {
       >
         <Text style={text.buttonText}>Submit</Text>
       </Pressable>
+      <View style={styles.buttonRowContainer}>
+        <Pressable
+          style={buttons.currentGameHistory}
+          onPress={() =>
+            navigation.navigate('CurrentGameHistory', {
+              players: gameInfo.players,
+            })
+          }
+        >
+          <Text style={text.smallCentered}>Scores</Text>
+        </Pressable>
+        <Pressable style={buttons.finalJeopardy}>
+          <Text style={text.smallCentered}>Final Jeopardy</Text>
+        </Pressable>
+      </View>
     </View>
   );
 }

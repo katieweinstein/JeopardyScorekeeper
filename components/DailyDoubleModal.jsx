@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput, Modal } from 'react-native';
 import { styles, buttons, text } from './styles';
-import { addMoveToDB } from '../api/move';
+import { addMoveToDB } from '../api/moves';
 
 export default function DailyDoubleModal({
   moveInfo,

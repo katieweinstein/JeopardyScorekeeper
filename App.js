@@ -1,5 +1,11 @@
 import React from 'react';
-import { Home, AddPlayers, Scoreboard, GameDetails } from './components';
+import {
+  Home,
+  AddPlayers,
+  Scoreboard,
+  GameDetails,
+  CurrentGameHistory,
+} from './components';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -25,13 +31,6 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="Scoreboard"
-          component={Scoreboard}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
           name="AddPlayers"
           component={AddPlayers}
           options={{
@@ -44,6 +43,23 @@ export default function App() {
         <Stack.Screen
           name="GameDetails"
           component={GameDetails}
+          options={{
+            headerTransparent: true,
+            headerTitle: '',
+            headerTitleStyle: { color: 'white' },
+            headerTintColor: 'white',
+          }}
+        />
+        <Stack.Screen
+          name="Scoreboard"
+          component={Scoreboard}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CurrentGameHistory"
+          component={CurrentGameHistory}
           options={{
             headerTransparent: true,
             headerTitle: '',
