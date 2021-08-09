@@ -43,7 +43,18 @@ export default function Scoring({
         >
           <Text style={text.smallCentered}>—</Text>
         </Pressable>
-        <Pressable style={buttons.doubleJeopardy}>
+        <Pressable
+          style={[
+            buttons.doubleJeopardy,
+            double ? { borderColor: 'white' } : { borderColor: '#84495A' },
+          ]}
+          onPress={() => {
+            setDouble(!double);
+            double
+              ? setScores([200, 400, 600, 800, 1000])
+              : setScores([400, 800, 1200, 1600, 2000]);
+          }}
+        >
           <Text style={text.smallCentered}>Double Jeopardy</Text>
         </Pressable>
       </View>

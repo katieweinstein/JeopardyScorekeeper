@@ -232,6 +232,7 @@ export const buttons = StyleSheet.create({
     height: 45,
     padding: 5,
     margin: 5,
+    borderWidth: 3,
   },
   negativeScore: {
     alignItems: 'center',
