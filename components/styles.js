@@ -81,6 +81,23 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     margin: 2.5,
   },
+  scoresListContainer: {
+    backgroundColor: '#425896',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+  },
+  scoresList: {
+    backgroundColor: '#231d5b',
+    margin: 5,
+    padding: 5,
+    flexGrow: 0,
+    width: 125,
+    height: 250,
+    borderWidth: 2,
+    borderColor: '#edc8a2',
+    borderRadius: 10,
+  },
 });
 
 export const text = StyleSheet.create({
@@ -111,6 +128,12 @@ export const text = StyleSheet.create({
     color: 'white',
     fontFamily: 'Trebuchet MS',
     fontSize: 24,
+    textAlign: 'center',
+  },
+  score: {
+    color: '#edc8a2',
+    fontFamily: 'Trebuchet MS',
+    fontSize: 20,
     textAlign: 'center',
   },
 });

@@ -4,7 +4,7 @@ import * as SQLite from 'expo-sqlite';
 // (function clearTable() {
 //   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
 //   db.transaction(
-//     (tx) => tx.executeSql('DROP TABLE Game', []),
+//     (tx) => tx.executeSql('DROP TABLE Move', []),
 //     (err) =>
 //       console.log('Oops, something went wrong removing the Game table: ', err),
 //     () => console.log('Game table successfully deleted.')
@@ -49,7 +49,7 @@ export function createMoveTable() {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS Move(id INTEGER PRIMARY KEY NOT NULL, player_id TEXT, game_id INTEGER NOT NULL, score INTEGER NOT NULL, FOREIGN KEY(player_id) REFERENCES Player(id), FOREIGN KEY(game_id) REFERENCES Game(id))',
+        'CREATE TABLE IF NOT EXISTS Move(id INTEGER PRIMARY KEY NOT NULL, player_id INTEGER NOT NULL, game_id INTEGER NOT NULL, score INTEGER NOT NULL, FOREIGN KEY(player_id) REFERENCES Player(id), FOREIGN KEY(game_id) REFERENCES Game(id))',
         []
       );
     },

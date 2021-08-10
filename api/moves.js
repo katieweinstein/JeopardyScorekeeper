@@ -18,15 +18,17 @@ export function addMoveToDB(player_id, game_id, score) {
   );
 }
 
+// Get each move with score, player id, player name, and game id for a particular game.
 export function getMovesForGame(setState, game_id) {
   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
     (tx) => {
       tx.executeSql(
-        'SELECT * FROM Move JOIN Player ON Move.player_id = Player.id WHERE Move.game_id = ? ',
+        'SELECT * FROM Move WHERE Move.game_id = ? ',
         [game_id],
         (tx, resultSet) => {
           const rows = resultSet.rows._array;
+          console.log(rows);
           setState(rows);
         }
       );
