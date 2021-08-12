@@ -1,14 +1,13 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
-import { currentGameId, getCurrentGameInfo } from '../api/games';
 import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
 
 export default function Scoreboard({ route, navigation }) {
   const [gameInfo, setGameInfo] = React.useState({
-    gameId: -1,
-    players: [],
+    gameId: route.params.gameId,
+    players: route.params.playersInGame,
   });
   const [moveInfo, setMoveInfo] = React.useState({
     player: '',
@@ -17,12 +16,9 @@ export default function Scoreboard({ route, navigation }) {
   const [scores, setScores] = React.useState([200, 400, 600, 800, 1000]);
   const [double, setDouble] = React.useState(false);
 
-  React.useEffect(() => {
-    setGameInfo({
-      gameId: currentGameId,
-      players: route.params.playersInGame,
-    });
-  }, []);
+  // React.useEffect(() => {
+  //   getCurrentGameInfo(setGameInfo, gameInfo);
+  // }, []);
 
   return (
     <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
@@ -37,7 +33,9 @@ export default function Scoreboard({ route, navigation }) {
                   ? { borderColor: 'white' }
                   : { borderColor: '#9E99DE' },
               ]}
-              onPress={() => setMoveInfo({ ...moveInfo, player: item })}
+              onPress={() => {
+                setMoveInfo({ ...moveInfo, player: item });
+              }}
             >
               <Text style={text.buttonText}>{item.name}</Text>
             </Pressable>
@@ -70,6 +68,7 @@ export default function Scoreboard({ route, navigation }) {
           onPress={() =>
             navigation.navigate('CurrentGameHistory', {
               players: gameInfo.players,
+              gameId: gameInfo.gameId,
             })
           }
         >

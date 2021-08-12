@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View, FlatList } from 'react-native';
 import { styles, buttons, text } from './styles';
-import { currentGameId } from '../api/games';
 import { getMovesForGame } from '../api/moves';
 
 export default function CurrentGameHistory({ route }) {
@@ -10,7 +9,11 @@ export default function CurrentGameHistory({ route }) {
   const reducer = (currentScore, move) => currentScore + move.score;
 
   React.useEffect(() => {
-    getMovesForGame(setState, currentGameId);
+    console.log(
+      'Game id from route in currentgamehistory: ',
+      route.params.gameId
+    );
+    getMovesForGame(setState, route.params.gameId);
   }, []);
 
   // Item to be created for each element in the flat list.
@@ -23,8 +26,8 @@ export default function CurrentGameHistory({ route }) {
   return (
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <View style={styles.scoresListContainer}>
-        {players.map((player) => (
-          <View>
+        {players.map((player, index) => (
+          <View key={index}>
             <Text style={[text.mainText, { textAlign: 'center' }]}>
               {player.name}
             </Text>

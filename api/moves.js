@@ -6,7 +6,11 @@ export function addMoveToDB(player_id, game_id, score) {
     (tx) => {
       tx.executeSql(
         'INSERT INTO Move (player_id, game_id, score) VALUES (?, ?, ?)',
-        [player_id, game_id, score]
+        [player_id, game_id, score],
+        (tx, resultSet) => {
+          const row = resultSet.rows._array;
+          console.log('Move added: ', row);
+        }
       );
     },
     (err) =>
@@ -24,11 +28,11 @@ export function getMovesForGame(setState, game_id) {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        'SELECT * FROM Move WHERE Move.game_id = ? ',
+        'SELECT * FROM Move WHERE game_id = ? ',
         [game_id],
         (tx, resultSet) => {
           const rows = resultSet.rows._array;
-          console.log(rows);
+          console.log('Database response: ', rows);
           setState(rows);
         }
       );

@@ -7,6 +7,15 @@ export default function GameDetails({ route, navigation }) {
   const [episodeNumberInput, setEpisodeNumberInput] = React.useState('');
   const [nicknameInput, setNicknameInput] = React.useState('');
 
+  async function addGame() {
+    const data = await addGameToDB(
+      route.params.playersInGame,
+      episodeNumberInput,
+      nicknameInput
+    );
+    return data.gameId;
+  }
+
   return (
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <Text style={text.buttonText}>Episode Number:</Text>
@@ -26,14 +35,11 @@ export default function GameDetails({ route, navigation }) {
         maxLength={30}
       />
       <Pressable
-        onPress={() => {
-          addGameToDB(
-            route.params.playersInGame,
-            episodeNumberInput,
-            nicknameInput
-          );
+        onPress={async () => {
+          const id = await addGame();
           navigation.navigate('Scoreboard', {
             playersInGame: route.params.playersInGame,
+            gameId: id,
           });
         }}
         style={buttons.nextButton}

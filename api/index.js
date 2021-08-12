@@ -4,7 +4,7 @@ import * as SQLite from 'expo-sqlite';
 // (function clearTable() {
 //   const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
 //   db.transaction(
-//     (tx) => tx.executeSql('DROP TABLE Move', []),
+//     (tx) => tx.executeSql('DROP TABLE Game', []),
 //     (err) =>
 //       console.log('Oops, something went wrong removing the Game table: ', err),
 //     () => console.log('Game table successfully deleted.')
@@ -34,7 +34,7 @@ export function createGameTable() {
   db.transaction(
     (tx) => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS Game(id INTEGER PRIMARY KEY NOT NULL, player_1 TEXT NOT NULL, player_2 TEXT, player_3 TEXT, player_4 TEXT, player_5 TEXT, player_6 TEXT, date_played DATETIME NOT NULL, episode INTEGER, nickname TEXT, FOREIGN KEY(player_1) REFERENCES Player(id), FOREIGN KEY(player_2) REFERENCES Player(id), FOREIGN KEY(player_3) REFERENCES Player(id), FOREIGN KEY(player_4) REFERENCES Player(id), FOREIGN KEY(player_5) REFERENCES Player(id), FOREIGN KEY(player_6) REFERENCES Player(id))',
+        'CREATE TABLE IF NOT EXISTS Game(id INTEGER PRIMARY KEY NOT NULL, player_1 INTEGER NOT NULL, player_2 INTEGER, player_3 INTEGER, player_4 INTEGER, player_5 INTEGER, player_6 INTEGER, date_played DATETIME NOT NULL, episode INTEGER, nickname TEXT, FOREIGN KEY(player_1) REFERENCES Player(id), FOREIGN KEY(player_2) REFERENCES Player(id), FOREIGN KEY(player_3) REFERENCES Player(id), FOREIGN KEY(player_4) REFERENCES Player(id), FOREIGN KEY(player_5) REFERENCES Player(id), FOREIGN KEY(player_6) REFERENCES Player(id))',
         []
       );
     },
