@@ -233,7 +233,7 @@ export const buttons = StyleSheet.create({
     margin: 5,
     borderWidth: 3,
   },
-  scoreButton: {
+  score: {
     alignItems: 'center',
     justifyContent: 'center',
     color: 'white',
@@ -265,7 +265,6 @@ export const buttons = StyleSheet.create({
     width: 40,
     padding: 7,
     margin: 5,
-    borderWidth: 3,
   },
   dailyDouble: {
     alignItems: 'center',

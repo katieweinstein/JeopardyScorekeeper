@@ -35,6 +35,7 @@ export default function Scoreboard({ route, navigation }) {
               ]}
               onPress={() => {
                 setMoveInfo({ ...moveInfo, player: item });
+                console.log('Move Info: ', moveInfo);
               }}
             >
               <Text style={text.buttonText}>{item.name}</Text>
@@ -56,6 +57,12 @@ export default function Scoreboard({ route, navigation }) {
       />
       <Pressable
         style={buttons.submitScore}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed ? '#ab5800' : '#C7853D',
+          },
+          buttons.submitScore,
+        ]}
         onPress={() =>
           addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score)
         }

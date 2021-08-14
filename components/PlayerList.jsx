@@ -69,6 +69,7 @@ export default function PlayerList({
       />
       <FlatList
         style={styles.flatList}
+        contentContainerStyle={{ paddingBottom: 20 }}
         data={playersList}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item }) => nameItem(item)}

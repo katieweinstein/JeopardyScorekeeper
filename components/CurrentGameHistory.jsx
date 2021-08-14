@@ -9,10 +9,6 @@ export default function CurrentGameHistory({ route }) {
   const reducer = (currentScore, move) => currentScore + move.score;
 
   React.useEffect(() => {
-    console.log(
-      'Game id from route in currentgamehistory: ',
-      route.params.gameId
-    );
     getMovesForGame(setState, route.params.gameId);
   }, []);
 
@@ -41,6 +37,7 @@ export default function CurrentGameHistory({ route }) {
             </Text>
             <FlatList
               style={styles.scoresList}
+              contentContainerStyle={{ paddingBottom: 20 }}
               data={state.filter((item) => item.player_id === player.id)}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => playerScoreHistory(item)}

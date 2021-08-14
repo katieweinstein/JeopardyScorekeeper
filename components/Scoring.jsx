@@ -25,20 +25,21 @@ export default function Scoring({
       />
       <View style={styles.scoreboardButtonContainer}>
         <Pressable
-          style={buttons.dailyDouble}
+          style={[
+            buttons.dailyDouble,
+            typeof moveInfo.player === 'string'
+              ? { backgroundColor: 'grey' }
+              : { backgroundColor: '#DC7C51' },
+          ]}
           onPress={() => setModalVisible(!modalVisible)}
+          disabled={typeof moveInfo.player === 'string'}
         >
           <Text style={text.smallCentered}>Daily Double</Text>
         </Pressable>
         <Pressable
-          style={[
-            buttons.negativeScore,
-            moveInfo.score < 0
-              ? { borderColor: 'white' }
-              : { borderColor: '#C84B58' },
-          ]}
+          style={buttons.negativeScore}
           onPress={() => {
-            setMoveInfo({ ...moveInfo, score: moveInfo.score * -1 });
+            setScores(scores.map((item) => item * -1));
           }}
         >
           <Text style={text.smallCentered}>—</Text>
@@ -55,7 +56,9 @@ export default function Scoring({
               : setScores([400, 800, 1200, 1600, 2000]);
           }}
         >
-          <Text style={text.smallCentered}>Double Jeopardy</Text>
+          <Text style={text.smallCentered}>
+            {double ? 'Single Jeopardy' : 'Double Jeopardy'}
+          </Text>
         </Pressable>
       </View>
       <View style={styles.scoreboardButtonContainer}>
@@ -63,18 +66,21 @@ export default function Scoring({
           scores.map((item, index) => (
             <Pressable
               style={[
-                buttons.scoreButton,
-                Math.abs(moveInfo.score) === item
-                  ? { borderColor: 'white' }
-                  : { borderColor: '#DFC74F' },
+                buttons.score,
+                {
+                  borderColor: moveInfo.score == item ? 'white' : 'transparent',
+                },
+                {
+                  backgroundColor: scores[0] < 0 ? '#C84B58' : '#DFC74F',
+                },
               ]}
               key={index}
-              onPress={() =>
+              onPress={() => {
                 setMoveInfo({
                   ...moveInfo,
-                  score: moveInfo.score < 0 ? item * -1 : item,
-                })
-              }
+                  score: item,
+                });
+              }}
             >
               <Text style={text.mainText}>{item}</Text>
             </Pressable>

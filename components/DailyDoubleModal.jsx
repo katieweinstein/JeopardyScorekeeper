@@ -5,7 +5,6 @@ import { addMoveToDB } from '../api/moves';
 
 export default function DailyDoubleModal({
   moveInfo,
-  setMoveInfo,
   gameInfo,
   modalVisible,
   setModalVisible,
@@ -46,32 +45,22 @@ export default function DailyDoubleModal({
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => {
-                setMoveInfo({ ...moveInfo, score: input * -1 });
-                addMoveToDB(
-                  moveInfo.player.id,
-                  gameInfo.gameId,
-                  moveInfo.score
-                );
+                addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * -1);
                 setModalVisible(!modalVisible);
                 setInput('');
               }}
             >
-              <Text style={text.smallCentered}>Incorrect</Text>
+              <Text style={text.smallCentered}>{input * -1}</Text>
             </Pressable>
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => {
-                setMoveInfo({ ...moveInfo, score: input });
-                addMoveToDB(
-                  moveInfo.player.id,
-                  gameInfo.gameId,
-                  moveInfo.score
-                );
+                addMoveToDB(moveInfo.player.id, gameInfo.gameId, input);
                 setModalVisible(!modalVisible);
                 setInput('');
               }}
             >
-              <Text style={text.smallCentered}>Correct</Text>
+              <Text style={text.smallCentered}>{input}</Text>
             </Pressable>
           </View>
         </View>
