@@ -9,7 +9,7 @@ export default function DailyDoubleModal({
   modalVisible,
   setModalVisible,
 }) {
-  const [input, setInput] = React.useState('');
+  const [input, setInput] = React.useState(0);
 
   return (
     <Modal
@@ -32,35 +32,45 @@ export default function DailyDoubleModal({
               keyboardType="number-pad"
             />
           </View>
+          {input > 0 ? (
+            <View style={styles.buttonRowContainer}>
+              <Pressable
+                style={[buttons.wager, { backgroundColor: 'red' }]}
+                onPress={() => {
+                  addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * -1);
+                  setModalVisible(!modalVisible);
+                  setInput('');
+                }}
+              >
+                <Text style={text.smallCentered}>${input * -1}</Text>
+              </Pressable>
+              <Pressable
+                style={[buttons.wager, { backgroundColor: 'green' }]}
+                onPress={() => {
+                  addMoveToDB(moveInfo.player.id, gameInfo.gameId, input);
+                  setModalVisible(!modalVisible);
+                  setInput('');
+                }}
+              >
+                <Text style={text.smallCentered}>${input}</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <View />
+          )}
           <View style={styles.scoreboardButtonContainer}>
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => {
                 setModalVisible(!modalVisible);
                 setInput('');
+                setMoveInfo({
+                  player: '',
+                  score: 0,
+                });
               }}
             >
               <Text style={text.smallCentered}>Cancel</Text>
-            </Pressable>
-            <Pressable
-              style={buttons.smallModalButton}
-              onPress={() => {
-                addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * -1);
-                setModalVisible(!modalVisible);
-                setInput('');
-              }}
-            >
-              <Text style={text.smallCentered}>{input * -1}</Text>
-            </Pressable>
-            <Pressable
-              style={buttons.smallModalButton}
-              onPress={() => {
-                addMoveToDB(moveInfo.player.id, gameInfo.gameId, input);
-                setModalVisible(!modalVisible);
-                setInput('');
-              }}
-            >
-              <Text style={text.smallCentered}>{input}</Text>
             </Pressable>
           </View>
         </View>

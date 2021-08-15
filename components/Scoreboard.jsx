@@ -11,7 +11,7 @@ export default function Scoreboard({ route, navigation }) {
   });
   const [moveInfo, setMoveInfo] = React.useState({
     player: '',
-    score: 1,
+    score: 0,
   });
   const [scores, setScores] = React.useState([200, 400, 600, 800, 1000]);
   const [double, setDouble] = React.useState(false);
@@ -57,17 +57,26 @@ export default function Scoreboard({ route, navigation }) {
       />
       <Pressable
         style={buttons.submitScore}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? '#ab5800' : '#C7853D',
-          },
+        style={[
           buttons.submitScore,
+          typeof moveInfo.player === 'string' || moveInfo.score < 1
+            ? { backgroundColor: 'grey', borderColor: 'grey' }
+            : { backgroundColor: '#C7853D' },
         ]}
-        onPress={() =>
-          addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score)
-        }
+        onPress={() => {
+          addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score);
+          setMoveInfo({
+            player: '',
+            score: 0,
+          });
+        }}
       >
-        <Text style={text.buttonText}>Submit</Text>
+        <Text
+          style={text.buttonText}
+          disabled={typeof moveInfo.player === 'string' && moveInfo.score < 1}
+        >
+          Submit
+        </Text>
       </Pressable>
       <View style={styles.buttonRowContainer}>
         <Pressable

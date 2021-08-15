@@ -213,6 +213,18 @@ export const buttons = StyleSheet.create({
     width: 120,
     height: 50,
   },
+  wager: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: '#9e99de',
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 3,
+    margin: 5,
+    padding: 5,
+    width: 100,
+  },
   deleteButton: {
     alignItems: 'center',
     justifyContent: 'center',
