@@ -35,7 +35,6 @@ export default function Scoreboard({ route, navigation }) {
               ]}
               onPress={() => {
                 setMoveInfo({ ...moveInfo, player: item });
-                console.log('Move Info: ', moveInfo);
               }}
             >
               <Text style={text.buttonText}>{item.name}</Text>
@@ -59,7 +58,7 @@ export default function Scoreboard({ route, navigation }) {
         style={buttons.submitScore}
         style={[
           buttons.submitScore,
-          typeof moveInfo.player === 'string' || moveInfo.score < 1
+          typeof moveInfo.player === 'string' || moveInfo.score === 0
             ? { backgroundColor: 'grey', borderColor: 'grey' }
             : { backgroundColor: '#C7853D' },
         ]}
@@ -73,7 +72,7 @@ export default function Scoreboard({ route, navigation }) {
       >
         <Text
           style={text.buttonText}
-          disabled={typeof moveInfo.player === 'string' && moveInfo.score < 1}
+          disabled={typeof moveInfo.player === 'string' || moveInfo.score === 0}
         >
           Submit
         </Text>

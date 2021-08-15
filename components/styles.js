@@ -109,7 +109,7 @@ export const text = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontFamily: 'Trebuchet MS',
-    fontSize: 28,
+    fontSize: 25,
   },
   playerList: {
     color: 'white',
