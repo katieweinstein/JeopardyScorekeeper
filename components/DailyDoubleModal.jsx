@@ -4,6 +4,7 @@ import { styles, buttons, text } from './styles';
 import { addMoveToDB } from '../api/moves';
 
 export default function DailyDoubleModal({
+  dailyDoubleScore,
   moveInfo,
   setMoveInfo,
   gameInfo,
@@ -11,6 +12,14 @@ export default function DailyDoubleModal({
   setModalVisible,
 }) {
   const [input, setInput] = React.useState(0);
+
+  function handlePress(multiplier) {
+    if (input < dailyDoubleScore) {
+      addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * multiplier);
+      setModalVisible(!modalVisible);
+      setInput('');
+    }
+  }
 
   return (
     <Modal
@@ -32,26 +41,21 @@ export default function DailyDoubleModal({
               maxLength={6}
               keyboardType="number-pad"
             />
+            <Text style={text.score}>
+              Max wager: ${dailyDoubleScore > 2000 ? dailyDoubleScore : 2000}
+            </Text>
           </View>
           {input > 0 ? (
-            <View style={styles.buttonRowContainer}>
+            <View style={[styles.buttonRowContainer, { marginTop: 20 }]}>
               <Pressable
                 style={[buttons.wager, { backgroundColor: 'red' }]}
-                onPress={() => {
-                  addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * -1);
-                  setModalVisible(!modalVisible);
-                  setInput('');
-                }}
+                onPress={() => handlePress(-1)}
               >
                 <Text style={text.smallCentered}>${input * -1}</Text>
               </Pressable>
               <Pressable
                 style={[buttons.wager, { backgroundColor: 'green' }]}
-                onPress={() => {
-                  addMoveToDB(moveInfo.player.id, gameInfo.gameId, input);
-                  setModalVisible(!modalVisible);
-                  setInput('');
-                }}
+                onPress={() => handlePress(1)}
               >
                 <Text style={text.smallCentered}>${input}</Text>
               </Pressable>

@@ -1,7 +1,8 @@
 import * as SQLite from 'expo-sqlite';
 
+const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+
 export function addMoveToDB(player_id, game_id, score) {
-  const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
     (tx) => {
       tx.executeSql(
@@ -24,7 +25,6 @@ export function addMoveToDB(player_id, game_id, score) {
 
 // Get each move with score, player id, player name, and game id for a particular game.
 export function getMovesForGame(setState, game_id) {
-  const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
   db.transaction(
     (tx) => {
       tx.executeSql(
@@ -44,4 +44,33 @@ export function getMovesForGame(setState, game_id) {
       ),
     () => console.log('Moves for this player successfully loaded.')
   );
+}
+
+// Get each move with score, player id, player name, and game id for a particular game.
+export async function getScoreForPlayer(game_id, player_id) {
+  return new Promise((resolve, reject) => {
+    db.transaction(
+      (tx) => {
+        tx.executeSql(
+          'SELECT score FROM Move WHERE player_id = ? AND game_id = ?',
+          [player_id, game_id],
+          (tx, resultSet) => {
+            if (!resultSet.rows._array.length) {
+              const none = 0;
+              resolve({ none });
+            } else {
+              const scores = resultSet.rows._array.map((item) => item.score);
+              const total = scores.reduce((total, current) => total + current);
+              resolve({ total });
+            }
+          }
+        );
+      },
+      (err) =>
+        console.log(
+          'Oops, something went wrong getting score for a player: ',
+          err
+        )
+    );
+  });
 }

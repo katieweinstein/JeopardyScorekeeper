@@ -14,10 +14,13 @@ export default function Scoring({
   gameInfo,
 }) {
   const [modalVisible, setModalVisible] = React.useState(false);
+  const [dailyDoubleScore, setDailyDoubleScore] = React.useState(0);
 
   return (
     <View>
       <DailyDoubleModal
+        dailyDoubleScore={dailyDoubleScore}
+        setDailyDoubleScore={setDailyDoubleScore}
         moveInfo={moveInfo}
         setMoveInfo={setMoveInfo}
         gameInfo={gameInfo}
@@ -25,7 +28,9 @@ export default function Scoring({
         setModalVisible={setModalVisible}
       />
       <ScoringDetails
+        setDailyDoubleScore={setDailyDoubleScore}
         moveInfo={moveInfo}
+        gameInfo={gameInfo}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
         scores={scores}

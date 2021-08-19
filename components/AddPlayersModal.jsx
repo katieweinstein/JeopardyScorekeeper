@@ -45,11 +45,13 @@ export default function AddPlayersModal({
             <Pressable
               style={buttons.modalButton}
               onPress={() => {
-                addPlayerToDB(input);
-                getPlayers(setPlayersList);
-                setPlayersInGame([]);
-                setModalVisible(!modalVisible);
-                setInput('');
+                if (input.length) {
+                  addPlayerToDB(input);
+                  getPlayers(setPlayersList);
+                  setPlayersInGame([]);
+                  setModalVisible(!modalVisible);
+                  setInput('');
+                }
               }}
             >
               <Text style={text.buttonText}>Add</Text>

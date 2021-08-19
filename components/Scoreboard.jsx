@@ -18,10 +18,6 @@ export default function Scoreboard({ route, navigation }) {
   const [scores, setScores] = React.useState(baseScores);
   const [double, setDouble] = React.useState(false);
 
-  // React.useEffect(() => {
-  //   getCurrentGameInfo(setGameInfo, gameInfo);
-  // }, []);
-
   return (
     <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
       <View style={[styles.scoreboardButtonContainer, { marginTop: 15 }]}>

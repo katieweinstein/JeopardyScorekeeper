@@ -1,9 +1,12 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
+import { getScoreForPlayer } from '../api/moves';
 
 export default function ScoringDetails({
+  setDailyDoubleScore,
   moveInfo,
+  gameInfo,
   modalVisible,
   setModalVisible,
   scores,
@@ -20,7 +23,14 @@ export default function ScoringDetails({
             ? { backgroundColor: 'grey' }
             : { backgroundColor: '#DC7C51' },
         ]}
-        onPress={() => setModalVisible(!modalVisible)}
+        onPress={async () => {
+          setModalVisible(!modalVisible);
+          const scoreObj = await getScoreForPlayer(
+            gameInfo.gameId,
+            moveInfo.player.id
+          );
+          setDailyDoubleScore(scoreObj.total);
+        }}
         disabled={typeof moveInfo.player === 'string'}
       >
         <Text style={text.smallCentered}>Daily Double</Text>
