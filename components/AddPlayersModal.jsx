@@ -29,7 +29,7 @@ export default function AddPlayersModal({
               onChangeText={setInput}
               value={input}
               autoCapitalize="words"
-              maxLength={15}
+              maxLength={10}
             />
           </View>
           <View style={styles.buttonRowContainer}>
