@@ -54,7 +54,7 @@ export default function Scoring({
                 });
               }}
             >
-              <Text style={text.mainText}>{item}</Text>
+              <Text style={text.mainText}>${item}</Text>
             </Pressable>
           ))
         ) : (

@@ -4,6 +4,8 @@ import { styles, buttons, text } from './styles';
 import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
 
+const baseScores = [200, 400, 600, 800, 1000];
+
 export default function Scoreboard({ route, navigation }) {
   const [gameInfo, setGameInfo] = React.useState({
     gameId: route.params.gameId,
@@ -13,7 +15,7 @@ export default function Scoreboard({ route, navigation }) {
     player: '',
     score: 0,
   });
-  const [scores, setScores] = React.useState([200, 400, 600, 800, 1000]);
+  const [scores, setScores] = React.useState(baseScores);
   const [double, setDouble] = React.useState(false);
 
   // React.useEffect(() => {
@@ -68,6 +70,7 @@ export default function Scoreboard({ route, navigation }) {
             player: '',
             score: 0,
           });
+          setScores(baseScores);
         }}
       >
         <Text

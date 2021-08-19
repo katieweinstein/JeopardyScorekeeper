@@ -34,10 +34,7 @@ export default function ScoringDetails({
         <Text style={text.smallCentered}>—</Text>
       </Pressable>
       <Pressable
-        style={[
-          buttons.doubleJeopardy,
-          double ? { borderColor: 'white' } : { borderColor: '#84495A' },
-        ]}
+        style={buttons.doubleJeopardy}
         onPress={() => {
           setDouble(!double);
           double

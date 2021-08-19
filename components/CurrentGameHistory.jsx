@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, View, FlatList } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { Text, View, FlatList, SafeAreaView } from 'react-native';
+import { styles, text } from './styles';
 import { getMovesForGame } from '../api/moves';
 
 export default function CurrentGameHistory({ route }) {
@@ -15,7 +15,7 @@ export default function CurrentGameHistory({ route }) {
   // Item to be created for each element in the flat list.
   const playerScoreHistory = (item) => (
     <View style={styles.nameContainer}>
-      <Text style={text.playerList}>{item.score}</Text>
+      <Text style={text.scoreHistory}>{item.score}</Text>
     </View>
   );
 
@@ -23,7 +23,7 @@ export default function CurrentGameHistory({ route }) {
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <View style={styles.scoresListContainer}>
         {players.map((player, index) => (
-          <View key={index}>
+          <View key={index} style={{ marginTop: 2 }}>
             <Text style={[text.mainText, { textAlign: 'center' }]}>
               {player.name}
             </Text>

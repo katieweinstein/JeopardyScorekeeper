@@ -86,14 +86,15 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    marginTop: 60,
   },
   scoresList: {
     backgroundColor: '#231d5b',
     margin: 5,
     padding: 5,
     flexGrow: 0,
-    width: 125,
-    height: 250,
+    width: 100,
+    height: 275,
     borderWidth: 2,
     borderColor: '#edc8a2',
     borderRadius: 10,
@@ -135,6 +136,12 @@ export const text = StyleSheet.create({
     fontFamily: 'Trebuchet MS',
     fontSize: 20,
     textAlign: 'center',
+  },
+  scoreHistory: {
+    color: 'white',
+    fontFamily: 'Trebuchet MS',
+    fontSize: 25,
+    paddingLeft: 5,
   },
 });
 
@@ -266,7 +273,6 @@ export const buttons = StyleSheet.create({
     height: 45,
     padding: 5,
     margin: 5,
-    borderWidth: 3,
   },
   negativeScore: {
     alignItems: 'center',

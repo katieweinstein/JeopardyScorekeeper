@@ -5,6 +5,7 @@ import { addMoveToDB } from '../api/moves';
 
 export default function DailyDoubleModal({
   moveInfo,
+  setMoveInfo,
   gameInfo,
   modalVisible,
   setModalVisible,
@@ -64,10 +65,7 @@ export default function DailyDoubleModal({
               onPress={() => {
                 setModalVisible(!modalVisible);
                 setInput('');
-                setMoveInfo({
-                  player: '',
-                  score: 0,
-                });
+                setMoveInfo({ ...moveInfo, score: 0 });
               }}
             >
               <Text style={text.smallCentered}>Cancel</Text>
