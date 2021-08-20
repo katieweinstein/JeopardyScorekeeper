@@ -11,7 +11,7 @@ export default function DailyDoubleModal({
   modalVisible,
   setModalVisible,
 }) {
-  const [input, setInput] = React.useState(0);
+  const [input, setInput] = React.useState('');
 
   function handlePress(multiplier) {
     if (input < dailyDoubleScore) {

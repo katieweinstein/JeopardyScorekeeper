@@ -5,6 +5,7 @@ import {
   Scoreboard,
   GameDetails,
   CurrentGameHistory,
+  FinalJeopardy,
 } from './components';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -60,6 +61,16 @@ export default function App() {
         <Stack.Screen
           name="CurrentGameHistory"
           component={CurrentGameHistory}
+          options={{
+            headerTransparent: true,
+            headerTitle: '',
+            headerTitleStyle: { color: 'white' },
+            headerTintColor: 'white',
+          }}
+        />
+        <Stack.Screen
+          name="FinalJeopardy"
+          component={FinalJeopardy}
           options={{
             headerTransparent: true,
             headerTitle: '',

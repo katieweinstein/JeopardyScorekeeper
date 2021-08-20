@@ -6,3 +6,4 @@ export { default as DeletePlayerModal } from './DeletePlayerModal';
 export { default as PlayerList } from './PlayerList';
 export { default as GameDetails } from './GameDetails';
 export { default as CurrentGameHistory } from './CurrentGameHistory';
+export { default as FinalJeopardy } from './FinalJeopardy';

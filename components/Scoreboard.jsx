@@ -88,7 +88,15 @@ export default function Scoreboard({ route, navigation }) {
         >
           <Text style={text.smallCentered}>Scores</Text>
         </Pressable>
-        <Pressable style={buttons.finalJeopardy}>
+        <Pressable
+          style={buttons.finalJeopardy}
+          onPress={() =>
+            navigation.navigate('FinalJeopardy', {
+              players: gameInfo.players,
+              gameId: gameInfo.gameId,
+            })
+          }
+        >
           <Text style={text.smallCentered}>Final Jeopardy</Text>
         </Pressable>
       </View>
