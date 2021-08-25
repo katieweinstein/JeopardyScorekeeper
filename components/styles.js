@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     marginBottom: 100,
   },
   buttonRowContainer: {
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
   },
