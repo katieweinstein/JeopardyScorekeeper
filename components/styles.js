@@ -143,6 +143,14 @@ export const text = StyleSheet.create({
     fontSize: 25,
     paddingLeft: 5,
   },
+  finalJeopardyTitle: {
+    color: 'white',
+    fontFamily: 'Trebuchet MS',
+    fontSize: 36,
+    marginBottom: 20,
+    textAlign: 'center',
+    marginTop: 100,
+  },
 });
 
 export const buttons = StyleSheet.create({

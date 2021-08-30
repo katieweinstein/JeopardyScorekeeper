@@ -46,8 +46,8 @@ export function getMovesForGame(setState, game_id) {
   );
 }
 
-// Get each move with score, player id, player name, and game id for a particular game.
-export async function getScoreForPlayer(game_id, player_id) {
+// Get score for an individual player.
+export function getScoreForPlayer(game_id, player_id) {
   return new Promise((resolve, reject) => {
     db.transaction(
       (tx) => {
