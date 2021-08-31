@@ -10,7 +10,7 @@ export function addMoveToDB(player_id, game_id, score) {
         [player_id, game_id, score],
         (tx, resultSet) => {
           const row = resultSet.rows._array;
-          console.log('Move added: ', row);
+          console.log('Move added.');
         }
       );
     },
@@ -32,7 +32,7 @@ export function getMovesForGame(setState, game_id) {
         [game_id],
         (tx, resultSet) => {
           const rows = resultSet.rows._array;
-          console.log('Database response: ', rows);
+          // console.log('Database response: ', rows);
           setState(rows);
         }
       );

@@ -10,21 +10,28 @@ export default function FinalJeopardy({ route }) {
   const reducer = (currentScore, move) => currentScore + move.score;
 
   const [input, setInput] = React.useState({
-    player1: { id: 0, wager: '', submitted: false },
-    player2: { id: 0, wager: '', submitted: false },
-    player3: { id: 0, wager: '', submitted: false },
-    player4: { id: 0, wager: '', submitted: false },
-    player5: { id: 0, wager: '', submitted: false },
-    player6: { id: 0, wager: '', submitted: false },
+    player1: { id: -1, wager: '', submitted: false },
+    player2: { id: -1, wager: '', submitted: false },
+    player3: { id: -1, wager: '', submitted: false },
+    player4: { id: -1, wager: '', submitted: false },
+    player5: { id: -1, wager: '', submitted: false },
+    player6: { id: -1, wager: '', submitted: false },
   });
 
   const [scores, setScores] = React.useState([]);
+  const [completed, setCompleted] = React.useState(false);
 
   function handleChange(stateLabel, value) {
     setInput({
       ...input,
       [stateLabel]: { ...input[stateLabel], wager: value },
     });
+  }
+
+  function handleSubmit(stateLabel, playerId, multiplier) {
+    addMoveToDB(playerId, gameId, input[stateLabel].wager * multiplier);
+    setInput({ ...input, [stateLabel]: { submitted: true } });
+    checkIfCompleted();
   }
 
   React.useEffect(() => {
@@ -36,7 +43,17 @@ export default function FinalJeopardy({ route }) {
       });
     });
     getMovesForGame(setScores, gameId);
+    checkIfCompleted();
   }, []);
+
+  function checkIfCompleted() {
+    for (let player in input) {
+      if (input[player].submitted === false && input[player].id > -1) {
+        return;
+      }
+    }
+    setCompleted(true);
+  }
 
   const wagerInput = (item, index) => {
     const stateLabel = 'player' + (index + 1);
@@ -78,10 +95,7 @@ export default function FinalJeopardy({ route }) {
                 ? { backgroundColor: 'red' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => {
-              addMoveToDB(item.id, gameId, input[stateLabel].wager * -1);
-              setInput({ ...input, [stateLabel]: { submitted: true } });
-            }}
+            onPress={() => handleSubmit(stateLabel, item.id, -1)}
           >
             <Text style={text.smallCentered}>Incorrect</Text>
           </Pressable>
@@ -93,10 +107,7 @@ export default function FinalJeopardy({ route }) {
                 ? { backgroundColor: 'green' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => {
-              addMoveToDB(item.id, gameId, input[stateLabel].wager);
-              setInput({ ...input, [stateLabel]: { submitted: true } });
-            }}
+            onPress={() => handleSubmit(stateLabel, item.id, 1)}
           >
             <Text style={text.smallCentered}>Correct</Text>
           </Pressable>
@@ -114,11 +125,19 @@ export default function FinalJeopardy({ route }) {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#425896' }}>
+    <View style={styles.container}>
       <KeyboardAwareScrollView style={{ backgroundColor: '#425896' }}>
         <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>
         {players.map((item, index) => wagerInput(item, index))}
       </KeyboardAwareScrollView>
+      <Pressable
+        style={[
+          buttons.submitScore,
+          { display: completed ? 'flex' : 'none', marginBottom: 30 },
+        ]}
+      >
+        <Text style={text.buttonText}>See Final Scores</Text>
+      </Pressable>
     </View>
   );
 }
