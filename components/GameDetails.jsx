@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { addGameToDB } from '../api/games';
 import { styles, buttons, text } from './styles';
 
@@ -17,7 +18,10 @@ export default function GameDetails({ route, navigation }) {
   }
 
   return (
-    <View style={[styles.container, { justifyContent: 'center' }]}>
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: '#425896' }}
+      contentContainerStyle={[styles.container, { justifyContent: 'center' }]}
+    >
       <Text style={text.buttonText}>Episode Number:</Text>
       <TextInput
         style={styles.input}
@@ -46,6 +50,6 @@ export default function GameDetails({ route, navigation }) {
       >
         <Text style={text.buttonText}>Start Game</Text>
       </Pressable>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }

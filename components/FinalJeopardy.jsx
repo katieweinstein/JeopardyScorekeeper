@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, View, Pressable, TextInput, ScrollView } from 'react-native';
+import { Text, View, Pressable, TextInput } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { styles, buttons, text } from './styles';
 import { addMoveToDB, getMovesForGame } from '../api/moves';
 
@@ -39,18 +40,17 @@ export default function FinalJeopardy({ route }) {
 
   const wagerInput = (item, index) => {
     const stateLabel = 'player' + (index + 1);
+    const currentScore = scores.length
+      ? scores
+          .filter((player) => player.player_id === item.id)
+          .reduce(reducer, 0)
+      : 0;
     return (
       <View style={{ marginBottom: 30 }} key={index}>
-        <Text style={text.smallCentered}>{item.name}</Text>
-        <Text style={text.score}>
-          Score:{' '}
-          {scores.length
-            ? scores
-                .filter((player) => player.player_id === item.id)
-                .reduce(reducer, 0)
-            : 'Nothing bro'}
+        <Text style={[text.scoreHistory, { textAlign: 'center' }]}>
+          {item.name}
         </Text>
-        <Text style={text.score}>Wager: </Text>
+        <Text style={text.score}>Score: {currentScore}</Text>
         <View style={styles.buttonRowContainer}>
           <TextInput
             style={styles.input}
@@ -58,13 +58,28 @@ export default function FinalJeopardy({ route }) {
             value={input[stateLabel].wager}
             maxLength={6}
             keyboardType="number-pad"
+            placeholder="Add wager..."
           />
         </View>
         <View style={styles.buttonRowContainer}>
-          <Pressable style={[buttons.wager, { backgroundColor: 'red' }]}>
+          <Pressable
+            style={[
+              buttons.wager,
+              input[stateLabel].wager < currentScore
+                ? { backgroundColor: 'red' }
+                : { backgroundColor: 'grey' },
+            ]}
+          >
             <Text style={text.smallCentered}>Incorrect</Text>
           </Pressable>
-          <Pressable style={[buttons.wager, { backgroundColor: 'green' }]}>
+          <Pressable
+            style={[
+              buttons.wager,
+              input[stateLabel].wager < currentScore
+                ? { backgroundColor: 'green' }
+                : { backgroundColor: 'grey' },
+            ]}
+          >
             <Text style={text.smallCentered}>Correct</Text>
           </Pressable>
         </View>
@@ -74,10 +89,10 @@ export default function FinalJeopardy({ route }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#425896' }}>
-      <ScrollView>
+      <KeyboardAwareScrollView style={{ backgroundColor: '#425896' }}>
         <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>
         {players.map((item, index) => wagerInput(item, index))}
-      </ScrollView>
+      </KeyboardAwareScrollView>
     </View>
   );
 }
