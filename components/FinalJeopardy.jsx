@@ -1,22 +1,23 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput, ScrollView } from 'react-native';
 import { styles, buttons, text } from './styles';
-import { addMoveToDB, getScoreForPlayer } from '../api/moves';
+import { addMoveToDB, getMovesForGame } from '../api/moves';
 
 export default function FinalJeopardy({ route }) {
   const gameId = route.params.gameId;
   const players = route.params.players;
-
-  console.log('STARTNG OVER');
+  const reducer = (currentScore, move) => currentScore + move.score;
 
   const [input, setInput] = React.useState({
-    player1: { id: 0, wager: '', score: 0 },
-    player2: { id: 0, wager: '', score: 0 },
-    player3: { id: 0, wager: '', score: 0 },
-    player4: { id: 0, wager: '', score: 0 },
-    player5: { id: 0, wager: '', score: 0 },
-    player6: { id: 0, wager: '', score: 0 },
+    player1: { id: 0, wager: '' },
+    player2: { id: 0, wager: '' },
+    player3: { id: 0, wager: '' },
+    player4: { id: 0, wager: '' },
+    player5: { id: 0, wager: '' },
+    player6: { id: 0, wager: '' },
   });
+
+  const [scores, setScores] = React.useState([]);
 
   function handleChange(stateLabel, value) {
     setInput({
@@ -28,38 +29,27 @@ export default function FinalJeopardy({ route }) {
   React.useEffect(() => {
     players.map((item, index) => {
       const stateLabel = 'player' + (index + 1);
-      console.log(input);
       setInput({
         ...input,
         [stateLabel]: { ...input[stateLabel], id: item.id },
       });
-      getPlayerScore(item.id, stateLabel);
     });
+    getMovesForGame(setScores, gameId);
   }, []);
-
-  async function getPlayerScore(playerId, stateLabel) {
-    const score = await getScoreForPlayer(gameId, playerId);
-    console.log('Score: ', score, 'State label: ', stateLabel);
-    if (score.total) {
-      setInput({
-        ...input,
-        [stateLabel]: { ...input[stateLabel], score: score.total },
-      });
-    }
-  }
 
   const wagerInput = (item, index) => {
     const stateLabel = 'player' + (index + 1);
-    console.log(
-      'State label: ',
-      stateLabel,
-      'Score in component: ',
-      input[stateLabel].score
-    );
     return (
       <View style={{ marginBottom: 30 }} key={index}>
         <Text style={text.smallCentered}>{item.name}</Text>
-        <Text style={text.score}>Score: {input[stateLabel].score}</Text>
+        <Text style={text.score}>
+          Score:{' '}
+          {scores.length
+            ? scores
+                .filter((player) => player.player_id === item.id)
+                .reduce(reducer, 0)
+            : 'Nothing bro'}
+        </Text>
         <Text style={text.score}>Wager: </Text>
         <View style={styles.buttonRowContainer}>
           <TextInput

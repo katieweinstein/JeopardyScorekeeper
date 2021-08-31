@@ -6,10 +6,11 @@ import { getMovesForGame } from '../api/moves';
 export default function CurrentGameHistory({ route }) {
   const [state, setState] = React.useState([]);
   const players = route.params.players;
+  const gameId = route.params.gameId;
   const reducer = (currentScore, move) => currentScore + move.score;
 
   React.useEffect(() => {
-    getMovesForGame(setState, route.params.gameId);
+    getMovesForGame(setState, gameId);
   }, []);
 
   // Item to be created for each element in the flat list.
