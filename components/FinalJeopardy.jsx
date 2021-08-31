@@ -10,12 +10,12 @@ export default function FinalJeopardy({ route }) {
   const reducer = (currentScore, move) => currentScore + move.score;
 
   const [input, setInput] = React.useState({
-    player1: { id: 0, wager: '' },
-    player2: { id: 0, wager: '' },
-    player3: { id: 0, wager: '' },
-    player4: { id: 0, wager: '' },
-    player5: { id: 0, wager: '' },
-    player6: { id: 0, wager: '' },
+    player1: { id: 0, wager: '', submitted: false },
+    player2: { id: 0, wager: '', submitted: false },
+    player3: { id: 0, wager: '', submitted: false },
+    player4: { id: 0, wager: '', submitted: false },
+    player5: { id: 0, wager: '', submitted: false },
+    player6: { id: 0, wager: '', submitted: false },
   });
 
   const [scores, setScores] = React.useState([]);
@@ -53,7 +53,10 @@ export default function FinalJeopardy({ route }) {
         <Text style={text.score}>Score: {currentScore}</Text>
         <View style={styles.buttonRowContainer}>
           <TextInput
-            style={styles.input}
+            style={[
+              styles.input,
+              { display: input[stateLabel].submitted ? 'none' : 'flex' },
+            ]}
             onChangeText={(value) => handleChange(stateLabel, value)}
             value={input[stateLabel].wager}
             maxLength={6}
@@ -61,27 +64,50 @@ export default function FinalJeopardy({ route }) {
             placeholder="Add wager..."
           />
         </View>
-        <View style={styles.buttonRowContainer}>
+        <View
+          style={[
+            styles.buttonRowContainer,
+            { display: input[stateLabel].submitted ? 'none' : 'flex' },
+          ]}
+        >
           <Pressable
             style={[
               buttons.wager,
-              input[stateLabel].wager < currentScore
+              input[stateLabel].wager <= currentScore &&
+              input[stateLabel].wager !== ''
                 ? { backgroundColor: 'red' }
                 : { backgroundColor: 'grey' },
             ]}
+            onPress={() => {
+              addMoveToDB(item.id, gameId, input[stateLabel].wager * -1);
+              setInput({ ...input, [stateLabel]: { submitted: true } });
+            }}
           >
             <Text style={text.smallCentered}>Incorrect</Text>
           </Pressable>
           <Pressable
             style={[
               buttons.wager,
-              input[stateLabel].wager < currentScore
+              input[stateLabel].wager <= currentScore &&
+              input[stateLabel].wager !== ''
                 ? { backgroundColor: 'green' }
                 : { backgroundColor: 'grey' },
             ]}
+            onPress={() => {
+              addMoveToDB(item.id, gameId, input[stateLabel].wager);
+              setInput({ ...input, [stateLabel]: { submitted: true } });
+            }}
           >
             <Text style={text.smallCentered}>Correct</Text>
           </Pressable>
+        </View>
+        <View
+          style={[
+            styles.buttonRowContainer,
+            { display: input[stateLabel].submitted ? 'flex' : 'none' },
+          ]}
+        >
+          <Text style={text.mainText}>Submitted!</Text>
         </View>
       </View>
     );
