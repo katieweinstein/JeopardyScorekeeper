@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
 import DailyDoubleModal from './DailyDoubleModal';
-import ScoringDetails from './ScoringDetails';
+import ScoringOptions from './ScoringOptions';
 
 export default function Scoring({
   scores,
@@ -27,7 +27,7 @@ export default function Scoring({
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
       />
-      <ScoringDetails
+      <ScoringOptions
         setDailyDoubleScore={setDailyDoubleScore}
         moveInfo={moveInfo}
         gameInfo={gameInfo}

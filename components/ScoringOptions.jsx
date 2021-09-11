@@ -3,7 +3,7 @@ import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text } from './styles';
 import { getScoreForPlayer } from '../api/moves';
 
-export default function ScoringDetails({
+export default function ScoringOptions({
   setDailyDoubleScore,
   moveInfo,
   gameInfo,

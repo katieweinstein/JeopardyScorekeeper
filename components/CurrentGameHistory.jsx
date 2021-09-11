@@ -24,8 +24,8 @@ export default function CurrentGameHistory({ route }) {
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <View style={styles.scoresListContainer}>
         {players.map((player, index) => (
-          <View key={index} style={{ marginTop: 2 }}>
-            <Text style={[text.mainText, { textAlign: 'center' }]}>
+          <View key={index} style={styles.individualScoresListContainer}>
+            <Text style={[text.smallCentered, { fontSize: 24 }]}>
               {player.name}
             </Text>
             <Text style={text.score}>

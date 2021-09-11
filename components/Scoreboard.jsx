@@ -18,26 +18,29 @@ export default function Scoreboard({ route, navigation }) {
   const [scores, setScores] = React.useState(baseScores);
   const [double, setDouble] = React.useState(false);
 
+  // Button element with player name
+  const playerButton = (item) => (
+    <Pressable
+      key={item.id}
+      style={[
+        buttons.playerButton,
+        moveInfo.player === item
+          ? { borderColor: 'white' }
+          : { borderColor: '#9E99DE' },
+      ]}
+      onPress={() => {
+        setMoveInfo({ ...moveInfo, player: item });
+      }}
+    >
+      <Text style={text.buttonText}>{item.name}</Text>
+    </Pressable>
+  );
+
   return (
     <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
       <View style={[styles.scoreboardButtonContainer, { marginTop: 15 }]}>
         {gameInfo.players.length ? (
-          gameInfo.players.map((item) => (
-            <Pressable
-              key={item.id}
-              style={[
-                buttons.playerButton,
-                moveInfo.player === item
-                  ? { borderColor: 'white' }
-                  : { borderColor: '#9E99DE' },
-              ]}
-              onPress={() => {
-                setMoveInfo({ ...moveInfo, player: item });
-              }}
-            >
-              <Text style={text.buttonText}>{item.name}</Text>
-            </Pressable>
-          ))
+          gameInfo.players.map((item) => playerButton(item))
         ) : (
           <Text styles={text.smallCentered}>Loading...</Text>
         )}

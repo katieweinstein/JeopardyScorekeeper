@@ -22,10 +22,9 @@ export default function DeletePlayerModal({
         <View style={styles.modalView}>
           <Text style={text.modalText}>
             Are you sure you would like to delete {playerToDelete.name}? This
-            will permanently and irreversibly remove this player and their game
-            history.
+            will permanently remove this player and their game history.
           </Text>
-          <View style={styles.buttonContainer}>
+          <View style={styles.buttonRowContainer}>
             <Pressable
               style={buttons.smallModalButton}
               onPress={() => setModalVisible(!modalVisible)}

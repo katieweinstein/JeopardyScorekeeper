@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
   },
   inputView: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
   },
   centeredView: {
@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
     padding: 35,
     height: 300,
     alignItems: 'center',
+    justifyContent: 'space-evenly',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -45,8 +46,6 @@ export const styles = StyleSheet.create({
   input: {
     height: 50,
     width: 250,
-    marginTop: 15,
-    marginBottom: 15,
     padding: 10,
     borderWidth: 1,
     borderColor: 'grey',
@@ -78,7 +77,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     margin: 2.5,
   },
   scoresListContainer: {
@@ -87,6 +86,11 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     marginTop: 60,
+  },
+  individualScoresListContainer: {
+    maxWidth: 115,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
   },
   scoresList: {
     backgroundColor: '#231d5b',
