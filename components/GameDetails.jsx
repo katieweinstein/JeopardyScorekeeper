@@ -24,7 +24,7 @@ export default function GameDetails({ route, navigation }) {
     >
       <Text style={text.buttonText}>Episode Number:</Text>
       <TextInput
-        style={styles.input}
+        style={styles.marginedInput}
         onChangeText={setEpisodeNumberInput}
         value={episodeNumberInput}
         maxLength={4}
@@ -32,7 +32,7 @@ export default function GameDetails({ route, navigation }) {
       />
       <Text style={text.buttonText}>Game Nickname:</Text>
       <TextInput
-        style={styles.input}
+        style={styles.marginedInput}
         onChangeText={setNicknameInput}
         value={nicknameInput}
         autoCapitalize="words"

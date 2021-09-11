@@ -4,59 +4,37 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { styles, buttons, text } from './styles';
 import { addMoveToDB, getMovesForGame } from '../api/moves';
 
-export default function FinalJeopardy({ route }) {
+export default function FinalJeopardy({ route, navigation }) {
   const gameId = route.params.gameId;
   const players = route.params.players;
   const reducer = (currentScore, move) => currentScore + move.score;
 
-  const [input, setInput] = React.useState({
-    player1: { id: -1, wager: '', submitted: false },
-    player2: { id: -1, wager: '', submitted: false },
-    player3: { id: -1, wager: '', submitted: false },
-    player4: { id: -1, wager: '', submitted: false },
-    player5: { id: -1, wager: '', submitted: false },
-    player6: { id: -1, wager: '', submitted: false },
-  });
-
+  const [input, setInput] = React.useState(players);
   const [scores, setScores] = React.useState([]);
-  const [completed, setCompleted] = React.useState(false);
+  let [submissionCount, setSubmissionCount] = React.useState(0);
 
-  function handleChange(stateLabel, value) {
-    setInput({
-      ...input,
-      [stateLabel]: { ...input[stateLabel], wager: value },
-    });
+  function handleChange(index, value) {
+    setInput([...input, (input[index].wager = value)]);
   }
 
-  function handleSubmit(stateLabel, playerId, multiplier) {
-    addMoveToDB(playerId, gameId, input[stateLabel].wager * multiplier);
-    setInput({ ...input, [stateLabel]: { submitted: true } });
-    checkIfCompleted();
+  function handleSubmit(index, playerId, multiplier) {
+    addMoveToDB(playerId, gameId, input[index].wager * multiplier);
+    setInput([...input, (input[index].submitted = true)]);
+    setSubmissionCount(submissionCount + 1);
   }
 
   React.useEffect(() => {
-    players.map((item, index) => {
-      const stateLabel = 'player' + (index + 1);
-      setInput({
-        ...input,
-        [stateLabel]: { ...input[stateLabel], id: item.id },
-      });
-    });
+    console.log('We are in useEffect and submissionCount is ', submissionCount);
     getMovesForGame(setScores, gameId);
-    checkIfCompleted();
+    submissionCount === players.length
+      ? navigation.navigate('FinalScores', {
+          players: players,
+          gameId: gameId,
+        })
+      : null;
   }, []);
 
-  function checkIfCompleted() {
-    for (let player in input) {
-      if (input[player].submitted === false && input[player].id > -1) {
-        return;
-      }
-    }
-    setCompleted(true);
-  }
-
   const wagerInput = (item, index) => {
-    const stateLabel = 'player' + (index + 1);
     const currentScore = scores.length
       ? scores
           .filter((player) => player.player_id === item.id)
@@ -71,11 +49,11 @@ export default function FinalJeopardy({ route }) {
         <View style={styles.buttonRowContainer}>
           <TextInput
             style={[
-              styles.input,
-              { display: input[stateLabel].submitted ? 'none' : 'flex' },
+              styles.marginedInput,
+              { display: input[index].submitted ? 'none' : 'flex' },
             ]}
-            onChangeText={(value) => handleChange(stateLabel, value)}
-            value={input[stateLabel].wager}
+            onChangeText={(value) => handleChange(index, value)}
+            value={input[index].wager}
             maxLength={6}
             keyboardType="number-pad"
             placeholder="Add wager..."
@@ -84,30 +62,28 @@ export default function FinalJeopardy({ route }) {
         <View
           style={[
             styles.buttonRowContainer,
-            { display: input[stateLabel].submitted ? 'none' : 'flex' },
+            { display: input[index].submitted ? 'none' : 'flex' },
           ]}
         >
           <Pressable
             style={[
               buttons.wager,
-              input[stateLabel].wager <= currentScore &&
-              input[stateLabel].wager !== ''
+              input[index].wager <= currentScore && input[index].wager !== ''
                 ? { backgroundColor: 'red' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => handleSubmit(stateLabel, item.id, -1)}
+            onPress={() => handleSubmit(index, item.id, -1)}
           >
             <Text style={text.smallCentered}>Incorrect</Text>
           </Pressable>
           <Pressable
             style={[
               buttons.wager,
-              input[stateLabel].wager <= currentScore &&
-              input[stateLabel].wager !== ''
+              input[index].wager <= currentScore && input[index].wager !== ''
                 ? { backgroundColor: 'green' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => handleSubmit(stateLabel, item.id, 1)}
+            onPress={() => handleSubmit(index, item.id, 1)}
           >
             <Text style={text.smallCentered}>Correct</Text>
           </Pressable>
@@ -115,7 +91,7 @@ export default function FinalJeopardy({ route }) {
         <View
           style={[
             styles.buttonRowContainer,
-            { display: input[stateLabel].submitted ? 'flex' : 'none' },
+            { display: input[index].submitted ? 'flex' : 'none' },
           ]}
         >
           <Text style={text.mainText}>Submitted!</Text>
@@ -125,19 +101,12 @@ export default function FinalJeopardy({ route }) {
   };
 
   return (
-    <View style={styles.container}>
-      <KeyboardAwareScrollView style={{ backgroundColor: '#425896' }}>
-        <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>
-        {players.map((item, index) => wagerInput(item, index))}
-      </KeyboardAwareScrollView>
-      <Pressable
-        style={[
-          buttons.submitScore,
-          { display: completed ? 'flex' : 'none', marginBottom: 30 },
-        ]}
-      >
-        <Text style={text.buttonText}>See Final Scores</Text>
-      </Pressable>
-    </View>
+    <KeyboardAwareScrollView
+      style={{ backgroundColor: '#425896' }}
+      contentContainerStyle={{ alignItems: 'center' }}
+    >
+      <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>
+      {players.map((item, index) => wagerInput(item, index))}
+    </KeyboardAwareScrollView>
   );
 }

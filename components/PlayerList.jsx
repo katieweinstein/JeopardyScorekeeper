@@ -15,7 +15,11 @@ export default function PlayerList({
 
   React.useEffect(() => {
     getPlayers(setPlayersList);
-    playersList.forEach((player) => (player.selected = false));
+    playersList.forEach((player) => {
+      player.selected = false;
+      player.wager = -1;
+      player.submitted = false;
+    });
   }, []);
 
   // Add players to the list for the current game

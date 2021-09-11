@@ -53,6 +53,18 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
     fontSize: 24,
   },
+  marginedInput: {
+    height: 50,
+    width: 250,
+    padding: 10,
+    marginTop: 15,
+    marginBottom: 15,
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 10,
+    backgroundColor: 'white',
+    fontSize: 24,
+  },
   nameContainer: {
     flex: 1,
     flexDirection: 'row',
@@ -73,11 +85,10 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
   },
   scoreboardButtonContainer: {
-    justifyContent: 'space-around',
     alignItems: 'center',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    // justifyContent: 'center',
+    justifyContent: 'center',
     margin: 2.5,
   },
   scoresListContainer: {
