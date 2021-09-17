@@ -11,7 +11,7 @@ export default function FinalJeopardy({ route, navigation }) {
 
   const [input, setInput] = React.useState(players);
   const [scores, setScores] = React.useState([]);
-  let [submissionCount, setSubmissionCount] = React.useState(0);
+  const [submissionCount, setSubmissionCount] = React.useState(0);
 
   function handleChange(index, value) {
     setInput([...input, (input[index].wager = value)]);
@@ -24,26 +24,29 @@ export default function FinalJeopardy({ route, navigation }) {
   }
 
   React.useEffect(() => {
-    console.log('We are in useEffect and submissionCount is ', submissionCount);
     getMovesForGame(setScores, gameId);
+  }, []);
+
+  React.useEffect(() => {
     submissionCount === players.length
       ? navigation.navigate('FinalScores', {
           players: players,
           gameId: gameId,
+          reducer: reducer,
         })
       : null;
-  }, []);
+  }, [submissionCount]);
 
-  const wagerInput = (item, index) => {
+  const wagerInput = (player, index) => {
     const currentScore = scores.length
       ? scores
-          .filter((player) => player.player_id === item.id)
+          .filter((score) => score.player_id === player.id)
           .reduce(reducer, 0)
       : 0;
     return (
       <View style={{ marginBottom: 30 }} key={index}>
         <Text style={[text.scoreHistory, { textAlign: 'center' }]}>
-          {item.name}
+          {player.name}
         </Text>
         <Text style={text.score}>Score: {currentScore}</Text>
         <View style={styles.buttonRowContainer}>
@@ -72,7 +75,7 @@ export default function FinalJeopardy({ route, navigation }) {
                 ? { backgroundColor: 'red' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => handleSubmit(index, item.id, -1)}
+            onPress={() => handleSubmit(index, player.id, -1)}
           >
             <Text style={text.smallCentered}>Incorrect</Text>
           </Pressable>
@@ -83,7 +86,7 @@ export default function FinalJeopardy({ route, navigation }) {
                 ? { backgroundColor: 'green' }
                 : { backgroundColor: 'grey' },
             ]}
-            onPress={() => handleSubmit(index, item.id, 1)}
+            onPress={() => handleSubmit(index, player.id, 1)}
           >
             <Text style={text.smallCentered}>Correct</Text>
           </Pressable>
@@ -106,7 +109,7 @@ export default function FinalJeopardy({ route, navigation }) {
       contentContainerStyle={{ alignItems: 'center' }}
     >
       <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>
-      {players.map((item, index) => wagerInput(item, index))}
+      {players.map((player, index) => wagerInput(player, index))}
     </KeyboardAwareScrollView>
   );
 }

@@ -15,7 +15,7 @@ export default function DailyDoubleModal({
   const [input, setInput] = React.useState('');
 
   function handlePress(multiplier) {
-    if (input < dailyDoubleScore) {
+    if (input < dailyDoubleScore && input > 4) {
       addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * multiplier);
       setModalVisible(!modalVisible);
       setInput('');
@@ -57,6 +57,7 @@ export default function DailyDoubleModal({
             <Text style={text.score}>
               Max wager: ${determineMaximumWager()}
             </Text>
+            <Text style={text.score}>Min wager: $5</Text>
           </View>
           {input > 0 ? (
             <View style={[styles.buttonRowContainer, { marginTop: 20 }]}>
