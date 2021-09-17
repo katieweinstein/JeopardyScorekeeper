@@ -10,6 +10,7 @@ export default function DailyDoubleModal({
   gameInfo,
   modalVisible,
   setModalVisible,
+  double,
 }) {
   const [input, setInput] = React.useState('');
 
@@ -18,6 +19,18 @@ export default function DailyDoubleModal({
       addMoveToDB(moveInfo.player.id, gameInfo.gameId, input * multiplier);
       setModalVisible(!modalVisible);
       setInput('');
+    }
+  }
+
+  function determineMaximumWager() {
+    if (double && dailyDoubleScore <= 2000) {
+      return 2000;
+    } else if (double && dailyDoubleScore > 2000) {
+      return dailyDoubleScore;
+    } else if (!double && dailyDoubleScore <= 1000) {
+      return 1000;
+    } else if (!double && dailyDoubleScore > 1000) {
+      return dailyDoubleScore;
     }
   }
 
@@ -42,7 +55,7 @@ export default function DailyDoubleModal({
               keyboardType="number-pad"
             />
             <Text style={text.score}>
-              Max wager: ${dailyDoubleScore > 2000 ? dailyDoubleScore : 2000}
+              Max wager: ${determineMaximumWager()}
             </Text>
           </View>
           {input > 0 ? (

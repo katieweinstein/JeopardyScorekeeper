@@ -26,6 +26,7 @@ export default function Scoring({
         gameInfo={gameInfo}
         modalVisible={modalVisible}
         setModalVisible={setModalVisible}
+        double={double}
       />
       <ScoringOptions
         setDailyDoubleScore={setDailyDoubleScore}
