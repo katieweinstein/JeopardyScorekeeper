@@ -32,7 +32,6 @@ export default function FinalJeopardy({ route, navigation }) {
       ? navigation.navigate('FinalScores', {
           players: players,
           gameId: gameId,
-          reducer: reducer,
         })
       : null;
   }, [submissionCount]);

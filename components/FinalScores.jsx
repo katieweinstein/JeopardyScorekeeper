@@ -6,7 +6,7 @@ import { getMovesForGame } from '../api/moves';
 export default function FinalScores({ route, navigation }) {
   const gameId = route.params.gameId;
   const players = route.params.players;
-  const reducer = route.params.reducer;
+  const reducer = (currentScore, move) => currentScore + move.score;
 
   const [scores, setScores] = React.useState([]);
 
@@ -15,7 +15,10 @@ export default function FinalScores({ route, navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
+      <Text style={[text.mainText, { textDecorationLine: 'underline' }]}>
+        Final Scores
+      </Text>
       {players.map((player) => {
         const currentScore = scores.length
           ? scores
@@ -24,7 +27,8 @@ export default function FinalScores({ route, navigation }) {
           : 0;
         return (
           <Text style={text.mainText} key={player.id}>
-            {player.name}
+            {player.name}:{' '}
+            <Text style={[text.score, { fontSize: 36 }]}>{currentScore}</Text>
           </Text>
         );
       })}
