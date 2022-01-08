@@ -2,10 +2,13 @@
   "expo": {
     "name": "JeopardyScorekeeper",
     "slug": "JeopardyScorekeeper",
+    "icon": "./images/icon.png",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "ios": {
+      "bundleIdentifier": "jeopardyscorekeeper",
+      "buildNumber": "1.0.0"
+    },
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "JeopardyScorekeeper"
 }

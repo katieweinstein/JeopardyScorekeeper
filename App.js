@@ -83,10 +83,7 @@ export default function App() {
           name="FinalScores"
           component={FinalScores}
           options={{
-            headerTransparent: true,
-            headerTitle: '',
-            headerTitleStyle: { color: 'white' },
-            headerTintColor: 'white',
+            headerShown: false,
           }}
         />
       </Stack.Navigator>

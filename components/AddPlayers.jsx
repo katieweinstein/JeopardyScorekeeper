@@ -18,7 +18,7 @@ export default function AddPlayers({ navigation }) {
         setPlayersInGame={setPlayersInGame}
       />
       <View style={[styles.container, { justifyContent: 'center' }]}>
-        <Text style={text.mainText}>Add Players</Text>
+        <Text style={text.mainText}>Players</Text>
         <PlayerList
           playersList={playersList}
           setPlayersList={setPlayersList}

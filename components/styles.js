@@ -93,9 +93,10 @@ export const styles = StyleSheet.create({
   },
   scoresListContainer: {
     backgroundColor: '#425896',
+    display: 'flex',
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     marginTop: 60,
   },
   individualScoresListContainer: {
@@ -208,10 +209,9 @@ export const buttons = StyleSheet.create({
   disabledButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    color: 'white',
-    backgroundColor: 'grey',
+    backgroundColor: '#999999',
     borderRadius: 10,
-    borderColor: 'white',
+    borderColor: '#dddddd',
     borderWidth: 3,
     margin: 10,
     padding: 20,

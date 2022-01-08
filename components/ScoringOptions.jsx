@@ -16,6 +16,7 @@ export default function ScoringOptions({
 }) {
   return (
     <View style={styles.scoreboardButtonContainer}>
+      {/* Daily Double */}
       <Pressable
         style={[
           buttons.dailyDouble,
@@ -35,6 +36,7 @@ export default function ScoringOptions({
       >
         <Text style={text.smallCentered}>Daily Double</Text>
       </Pressable>
+      {/* Negative Score */}
       <Pressable
         style={buttons.negativeScore}
         onPress={() => {
@@ -43,6 +45,7 @@ export default function ScoringOptions({
       >
         <Text style={text.smallCentered}>—</Text>
       </Pressable>
+      {/* Double Jeopardy */}
       <Pressable
         style={buttons.doubleJeopardy}
         onPress={() => {

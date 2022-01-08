@@ -4,8 +4,6 @@ import { styles, buttons, text } from './styles';
 import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
 
-const baseScores = [200, 400, 600, 800, 1000];
-
 export default function Scoreboard({ route, navigation }) {
   const [gameInfo, setGameInfo] = React.useState({
     gameId: route.params.gameId,
@@ -15,8 +13,19 @@ export default function Scoreboard({ route, navigation }) {
     player: '',
     score: 0,
   });
-  const [scores, setScores] = React.useState(baseScores);
+  const [scores, setScores] = React.useState(
+    double ? [400, 800, 1200, 1600, 2000] : [200, 400, 600, 800, 1000]
+  );
   const [double, setDouble] = React.useState(false);
+
+  const handleSubmit = () => {
+    addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score);
+    setMoveInfo({
+      player: '',
+      score: 0,
+    });
+    setScores(scores[0] < 0 ? scores.map((item) => item * -1) : scores);
+  };
 
   // Button element with player name
   const playerButton = (item) => (
@@ -55,22 +64,15 @@ export default function Scoreboard({ route, navigation }) {
         gameInfo={gameInfo}
         setGameInfo={setGameInfo}
       />
+      {/* Submit */}
       <Pressable
-        style={buttons.submitScore}
         style={[
           buttons.submitScore,
           typeof moveInfo.player === 'string' || moveInfo.score === 0
             ? { backgroundColor: 'grey', borderColor: 'grey' }
             : { backgroundColor: '#C7853D' },
         ]}
-        onPress={() => {
-          addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score);
-          setMoveInfo({
-            player: '',
-            score: 0,
-          });
-          setScores(baseScores);
-        }}
+        onPress={handleSubmit}
       >
         <Text
           style={text.buttonText}
@@ -80,6 +82,7 @@ export default function Scoreboard({ route, navigation }) {
         </Text>
       </Pressable>
       <View style={styles.buttonRowContainer}>
+        {/* Game History */}
         <Pressable
           style={buttons.currentGameHistory}
           onPress={() =>
@@ -91,6 +94,7 @@ export default function Scoreboard({ route, navigation }) {
         >
           <Text style={text.smallCentered}>Scores</Text>
         </Pressable>
+        {/* Final Jeopardy */}
         <Pressable
           style={buttons.finalJeopardy}
           onPress={() =>

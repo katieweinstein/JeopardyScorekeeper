@@ -32,7 +32,12 @@ export default function FinalScores({ route, navigation }) {
           </Text>
         );
       })}
-      <Text></Text>
+      <Pressable
+        style={buttons.nextButton}
+        onPress={() => navigation.navigate('Home')}
+      >
+        <Text style={text.buttonText}>Home</Text>
+      </Pressable>
     </View>
   );
 }
