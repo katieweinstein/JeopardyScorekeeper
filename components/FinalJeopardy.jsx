@@ -30,17 +30,17 @@ export default function FinalJeopardy({ route, navigation }) {
   React.useEffect(() => {
     submissionCount === players.length
       ? navigation.navigate('FinalScores', {
-          players: players,
-          gameId: gameId,
-        })
+        players: players,
+        gameId: gameId,
+      })
       : null;
   }, [submissionCount]);
 
   const wagerInput = (player, index) => {
     const currentScore = scores.length
       ? scores
-          .filter((score) => score.player_id === player.id)
-          .reduce(reducer, 0)
+        .filter((score) => score.player_id === player.id)
+        .reduce(reducer, 0)
       : 0;
     return (
       <View style={{ marginBottom: 30 }} key={index}>
@@ -59,6 +59,7 @@ export default function FinalJeopardy({ route, navigation }) {
             maxLength={6}
             keyboardType="number-pad"
             placeholder="Add wager..."
+            placeholderTextColor='#7a7a7a'
           />
         </View>
         <View

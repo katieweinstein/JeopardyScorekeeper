@@ -8,7 +8,19 @@
       "bundleIdentifier": "jeopardyscorekeeper",
       "buildNumber": "1.0.0"
     },
-    "assetBundlePatterns": ["**/*"]
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "05a685b3-db53-4481-859a-e43d8a24c728"
+      }
+    },
+    "runtimeVersion": "1.0.0",
+    "updates": {
+      "url": "https://u.expo.dev/05a685b3-db53-4481-859a-e43d8a24c728"
+    },
+    "android": {}
   },
   "name": "JeopardyScorekeeper"
 }
