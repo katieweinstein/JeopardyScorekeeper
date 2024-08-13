@@ -18,7 +18,8 @@ target 'JeopardyScorekeeper' do
   use_modular_headers!
   config = use_native_modules!
 
-  use_react_native!(:path => config[:reactNativePath], :hermes_enabled => true)
+  use_react_native!(:path => config[:reactNativePath],
+  :hermes_enabled => true)
 
   # Uncomment to opt-in to using Flipper
   #
