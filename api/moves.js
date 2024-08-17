@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+const db = SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
 
 export function addMoveToDB(player_id, game_id, score) {
   db.transaction(

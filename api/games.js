@@ -1,6 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabase('jeopardy-scorekeeper.db', '1.0', '', 1);
+const db = SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
 
 function createPlayerArray(players) {
   let playerArray = [];
