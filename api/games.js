@@ -1,8 +1,6 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
-
-function createPlayerArray(players) {
+const createPlayerArray = (players) => {
   let playerArray = [];
   for (let i = 0; i < 6; i++) {
     if (players[i]) {
@@ -15,35 +13,26 @@ function createPlayerArray(players) {
 }
 
 export async function addGameToDB(players, episode, nickname) {
+  const db = await SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
   const arr = createPlayerArray(players);
-  return new Promise((resolve, reject) => {
-    db.transaction(
-      (tx) => {
-        tx.executeSql(
-          'INSERT INTO Game (player_1, player_2, player_3, player_4, player_5, player_6, date_played, episode, nickname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-          [
-            arr[0],
-            arr[1],
-            arr[2],
-            arr[3],
-            arr[4],
-            arr[5],
-            new Date(),
-            episode,
-            nickname,
-          ],
-          (tx, resultSet) => {
-            const gameId = resultSet.insertId;
-            resolve({ gameId });
-          }
-        );
-      },
-      (err) => console.log('Oops, something went wrong adding a game: ', err),
-      () => {
-        console.log('Game added to table.');
-      }
-    );
-  });
+  const today = new Date().toString()
+  try {
+    const game = await db.runAsync(
+      'INSERT INTO Game (player_1, player_2, player_3, player_4, player_5, player_6, date_played, episode, nickname) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      arr[0],
+      arr[1],
+      arr[2],
+      arr[3],
+      arr[4],
+      arr[5],
+      today,
+      episode,
+      nickname);
+    console.log(`🎲 Game with id ${game.lastInsertRowId} added to table.`);
+    return game.lastInsertRowId
+  } catch (err) {
+    console.log('Oops, something went wrong adding a game: ', err)
+  }
 }
 
 // export function getCurrentGameInfo(setGameInfo, gameInfo) {

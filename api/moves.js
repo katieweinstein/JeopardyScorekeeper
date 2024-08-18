@@ -1,53 +1,41 @@
 import * as SQLite from 'expo-sqlite';
 
-const db = SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
-
-export function addMoveToDB(player_id, game_id, score) {
-  db.transaction(
-    (tx) => {
-      tx.executeSql(
-        'INSERT INTO Move (player_id, game_id, score) VALUES (?, ?, ?)',
-        [player_id, game_id, score],
-        (tx, resultSet) => {
-          const row = resultSet.rows._array;
-          console.log('Move added.');
-        }
-      );
-    },
-    (err) =>
-      console.log(
-        'Oops, something went wrong adding a move to the Move table: ',
-        err
-      ),
-    () => console.log('Move successfully added to Move table.')
-  );
+export async function addMoveToDB(player_id, game_id, score) {
+  const db = await SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
+  try {
+    await db.runAsync(
+      'INSERT INTO Move (player_id, game_id, score) VALUES (?, ?, ?)',
+      player_id, game_id, score)
+    console.log('Move successfully added to Move table.')
+  } catch (err) {
+    console.log(
+      'Oops, something went wrong adding a move to the Move table: ',
+      err
+    )
+  }
 }
 
 // Get each move with score, player id, player name, and game id for a particular game.
-export function getMovesForGame(setState, game_id) {
-  db.transaction(
-    (tx) => {
-      tx.executeSql(
-        'SELECT * FROM Move WHERE game_id = ? ',
-        [game_id],
-        (tx, resultSet) => {
-          const rows = resultSet.rows._array;
-          // console.log('Database response: ', rows);
-          setState(rows);
-        }
-      );
-    },
-    (err) =>
-      console.log(
-        'Oops, something went wrong getting the list of moves: ',
-        err
-      ),
-    () => console.log('Moves for this player successfully loaded.')
-  );
+export async function getMovesForGame(setState, game_id) {
+  const db = await SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
+  try {
+    const rows = db.getFirstAsync(
+      'SELECT * FROM Move WHERE game_id = ? ',
+      game_id)
+    console.log('Database response: ', rows);
+    // setState(rows);
+    console.log('Moves for this player successfully loaded.')
+  } catch (err) {
+    console.log(
+      'Oops, something went wrong getting the list of moves: ',
+      err
+    )
+  }
 }
 
 // Get score for an individual player.
-export function getScoreForPlayer(game_id, player_id) {
+export async function getScoreForPlayer(game_id, player_id) {
+  const db = await SQLite.openDatabaseAsync('jeopardy-scorekeeper.db');
   return new Promise((resolve, reject) => {
     db.transaction(
       (tx) => {

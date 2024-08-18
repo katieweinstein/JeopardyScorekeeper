@@ -41,6 +41,7 @@ export default function GameDetails({ route, navigation }) {
       <Pressable
         onPress={async () => {
           const id = await addGame();
+          console.log("*****", id)
           navigation.navigate('Scoreboard', {
             playersInGame: route.params.playersInGame,
             gameId: id,
