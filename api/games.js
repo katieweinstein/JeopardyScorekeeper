@@ -29,7 +29,7 @@ export async function addGameToDB(players, episode, nickname) {
       episode,
       nickname);
     console.log(`🎲 Game with id ${game.lastInsertRowId} added to table.`);
-    return game.lastInsertRowId
+    return { gameId: game.lastInsertRowId }
   } catch (err) {
     console.log('Oops, something went wrong adding a game: ', err)
   }
