@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Modal, Pressable } from 'react-native';
 import { getPlayers, deletePlayer } from '../api/players';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 
 export default function DeletePlayerModal({
   modalVisible,

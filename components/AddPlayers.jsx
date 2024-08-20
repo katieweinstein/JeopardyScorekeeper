@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Pressable } from 'react-native';
 import AddPlayersModal from './AddPlayersModal';
 import PlayerList from './PlayerList';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 
 export default function AddPlayers({ navigation }) {
   const [modalVisible, setModalVisible] = React.useState(false);

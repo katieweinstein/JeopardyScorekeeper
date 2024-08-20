@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text, colors } from './styles/styles';
 import { getScoreForPlayer } from '../api/moves';
 
 export default function ScoringOptions({
@@ -22,7 +22,7 @@ export default function ScoringOptions({
           buttons.dailyDouble,
           typeof moveInfo.player === 'string'
             ? { backgroundColor: 'grey' }
-            : { backgroundColor: '#DC7C51' },
+            : { backgroundColor: colors.orange },
         ]}
         onPress={async () => {
           setModalVisible(!modalVisible);

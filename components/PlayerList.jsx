@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, FlatList, Pressable } from 'react-native';
 import { getPlayers } from '../api/players';
 import DeletePlayerModal from './DeletePlayerModal';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 
 export default function PlayerList({
   playersList,

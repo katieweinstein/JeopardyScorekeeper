@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, FlatList, SafeAreaView } from 'react-native';
-import { styles, text } from './styles';
+import { styles, text } from './styles/styles';
 import { getMovesForGame } from '../api/moves';
 
 export default function CurrentGameHistory({ route }) {

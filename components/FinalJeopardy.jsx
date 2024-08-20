@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text, colors } from './styles/styles';
 import { addMoveToDB, getMovesForGame } from '../api/moves';
 
 export default function FinalJeopardy({ route, navigation }) {
@@ -59,7 +59,7 @@ export default function FinalJeopardy({ route, navigation }) {
             maxLength={6}
             keyboardType="number-pad"
             placeholder="Add wager..."
-            placeholderTextColor='#7a7a7a'
+            placeholderTextColor={colors.placeholderText}
           />
         </View>
         <View
@@ -105,7 +105,7 @@ export default function FinalJeopardy({ route, navigation }) {
 
   return (
     <KeyboardAwareScrollView
-      style={{ backgroundColor: '#425896' }}
+      style={{ backgroundColor: colors.background }}
       contentContainerStyle={{ alignItems: 'center' }}
     >
       <Text style={text.finalJeopardyTitle}>Final Jeopardy</Text>

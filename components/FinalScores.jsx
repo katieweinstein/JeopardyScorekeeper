@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 import { getMovesForGame } from '../api/moves';
 
 export default function FinalScores({ route, navigation }) {
@@ -22,8 +22,8 @@ export default function FinalScores({ route, navigation }) {
       {players.map((player) => {
         const currentScore = scores.length
           ? scores
-              .filter((score) => score.player_id === player.id)
-              .reduce(reducer, 0)
+            .filter((score) => score.player_id === player.id)
+            .reduce(reducer, 0)
           : 0;
         return (
           <Text style={text.mainText} key={player.id}>

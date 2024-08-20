@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text, colors } from './styles/styles';
 import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
 
@@ -35,7 +35,7 @@ export default function Scoreboard({ route, navigation }) {
         buttons.playerButton,
         moveInfo.player === item
           ? { borderColor: 'white' }
-          : { borderColor: '#9E99DE' },
+          : { borderColor: colors.lightBlue },
       ]}
       onPress={() => {
         setMoveInfo({ ...moveInfo, player: item });
@@ -51,8 +51,8 @@ export default function Scoreboard({ route, navigation }) {
         {gameInfo.players.length ? (
           gameInfo.players.map((item) => playerButton(item))
         ) : (
-          <Text styles={text.smallCentered}>Loading...</Text>
-        )}
+            <Text styles={text.smallCentered}>Loading...</Text>
+          )}
       </View>
       <Scoring
         scores={scores}
@@ -70,7 +70,7 @@ export default function Scoreboard({ route, navigation }) {
           buttons.submitScore,
           typeof moveInfo.player === 'string' || moveInfo.score === 0
             ? { backgroundColor: 'grey', borderColor: 'grey' }
-            : { backgroundColor: '#C7853D' },
+            : { backgroundColor: colors.darkGold },
         ]}
         onPress={handleSubmit}
       >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text, colors } from './styles/styles';
 import DailyDoubleModal from './DailyDoubleModal';
 import ScoringOptions from './ScoringOptions';
 
@@ -49,7 +49,7 @@ export default function Scoring({
                   borderColor: moveInfo.score == item ? 'white' : 'transparent',
                 },
                 {
-                  backgroundColor: scores[0] < 0 ? '#C84B58' : '#DFC74F',
+                  backgroundColor: scores[0] < 0 ? colors.trueRed : colors.trueYellow,
                 },
               ]}
               key={index}
@@ -64,8 +64,8 @@ export default function Scoring({
             </Pressable>
           ))
         ) : (
-          <Text style={text.smallCentered}>Loading...</Text>
-        )}
+            <Text style={text.smallCentered}>Loading...</Text>
+          )}
       </View>
     </View>
   );

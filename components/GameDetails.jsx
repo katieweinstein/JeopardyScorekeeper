@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, Pressable, TextInput } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { addGameToDB } from '../api/games';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text, colors } from './styles/styles';
 
 export default function GameDetails({ route, navigation }) {
   const [episodeNumberInput, setEpisodeNumberInput] = React.useState('');
@@ -19,7 +19,7 @@ export default function GameDetails({ route, navigation }) {
 
   return (
     <KeyboardAwareScrollView
-      style={{ backgroundColor: '#425896' }}
+      style={{ backgroundColor: colors.background }}
       contentContainerStyle={[styles.container, { justifyContent: 'center' }]}
     >
       <Text style={text.buttonText}>Episode Number:</Text>

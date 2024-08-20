@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput, Modal } from 'react-native';
 import { getPlayers, addPlayerToDB } from '../api/players';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 
 export default function AddPlayersModal({
   modalVisible,

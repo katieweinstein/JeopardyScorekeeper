@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, Pressable, TextInput, Modal } from 'react-native';
-import { styles, buttons, text } from './styles';
+import { styles, buttons, text } from './styles/styles';
 import { addMoveToDB } from '../api/moves';
 
 export default function DailyDoubleModal({
@@ -75,8 +75,8 @@ export default function DailyDoubleModal({
               </Pressable>
             </View>
           ) : (
-            <View />
-          )}
+              <View />
+            )}
           <View style={styles.scoreboardButtonContainer}>
             <Pressable
               style={buttons.smallModalButton}
