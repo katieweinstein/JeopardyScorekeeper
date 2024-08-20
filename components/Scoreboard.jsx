@@ -3,6 +3,7 @@ import { Text, View, Pressable } from 'react-native';
 import { styles, buttons, text, colors } from './styles/styles';
 import { addMoveToDB } from '../api/moves';
 import Scoring from './Scoring';
+import ExitGameModal from './ExitGameModal'
 
 export default function Scoreboard({ route, navigation }) {
   const [gameInfo, setGameInfo] = React.useState({
@@ -17,6 +18,7 @@ export default function Scoreboard({ route, navigation }) {
     double ? [400, 800, 1200, 1600, 2000] : [200, 400, 600, 800, 1000]
   );
   const [double, setDouble] = React.useState(false);
+  const [isExitModalVisible, setIsExitModalVisible] = React.useState(false)
 
   const handleSubmit = () => {
     addMoveToDB(moveInfo.player.id, gameInfo.gameId, moveInfo.score);
@@ -47,6 +49,7 @@ export default function Scoreboard({ route, navigation }) {
 
   return (
     <View style={[styles.container, { justifyContent: 'space-evenly' }]}>
+      <ExitGameModal modalVisible={isExitModalVisible} setModalVisible={setIsExitModalVisible} navigation={navigation} />
       <View style={[styles.scoreboardButtonContainer, { marginTop: 15 }]}>
         {gameInfo.players.length ? (
           gameInfo.players.map((item) => playerButton(item))
@@ -107,6 +110,9 @@ export default function Scoreboard({ route, navigation }) {
           <Text style={text.smallCentered}>Final Jeopardy</Text>
         </Pressable>
       </View>
+      <Pressable style={buttons.exitGame} onPress={() => setIsExitModalVisible(true)}>
+        <Text style={text.smallCentered}>Exit Game</Text>
+      </Pressable>
     </View>
   );
 }

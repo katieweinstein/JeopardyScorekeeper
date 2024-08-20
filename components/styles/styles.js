@@ -374,4 +374,15 @@ export const buttons = StyleSheet.create({
     borderColor: colors.mediumBlue,
     borderWidth: 3,
   },
+  exitGame: {
+    justifyContent: 'center',
+    color: 'white',
+    backgroundColor: colors.trueRed,
+    borderRadius: 20,
+    width: 170,
+    padding: 7,
+    margin: 5,
+    borderColor: colors.brickRed,
+    borderWidth: 3,
+  }
 });

@@ -7,6 +7,7 @@ import {
   CurrentGameHistory,
   FinalJeopardy,
   FinalScores,
+  ExitGameModal
 } from './components';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -30,6 +31,14 @@ export default function App() {
           component={Home}
           options={{
             headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="ExitGameModal"
+          component={ExitGameModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: false
           }}
         />
         <Stack.Screen
@@ -57,6 +66,7 @@ export default function App() {
           component={Scoreboard}
           options={{
             headerShown: false,
+            gestureEnabled: false
           }}
         />
         <Stack.Screen
