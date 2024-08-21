@@ -7,7 +7,7 @@ export default function Home({ navigation }) {
   return (
     <View style={[styles.container, { justifyContent: 'center' }]}>
       <Image
-        source={require('../images/jeopardy-logo.png')}
+        source={require('../images/logo.png')}
         style={styles.logo}
       />
       <Text style={text.mainText}>Scorekeeper</Text>
