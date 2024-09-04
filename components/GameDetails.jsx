@@ -22,7 +22,7 @@ export default function GameDetails({ route, navigation }) {
       style={{ backgroundColor: colors.background }}
       contentContainerStyle={[styles.container, { justifyContent: 'center' }]}
     >
-      <Text style={text.buttonText}>Episode Number:</Text>
+      <Text style={text.buttonText}>Episode Number (optional):</Text>
       <TextInput
         style={styles.marginedInput}
         onChangeText={setEpisodeNumberInput}
@@ -30,7 +30,7 @@ export default function GameDetails({ route, navigation }) {
         maxLength={4}
         keyboardType="number-pad"
       />
-      <Text style={text.buttonText}>Game Nickname:</Text>
+      <Text style={text.buttonText}>Game Nickname (optional):</Text>
       <TextInput
         style={styles.marginedInput}
         onChangeText={setNicknameInput}
