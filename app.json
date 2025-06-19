@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "JeopardyScorekeeper",
-    "slug": "JeopardyScorekeeper",
+    "name": "TriviaScorekeeper",
+    "slug": "TriviaScorekeeper",
     "icon": "./images/icon.png",
     "version": "1.0.0",
     "ios": {
-      "bundleIdentifier": "jeopardyscorekeeper",
+      "bundleIdentifier": "triviascorekeeper",
       "buildNumber": "1.0.0"
     },
     "assetBundlePatterns": [
@@ -22,5 +22,5 @@
     },
     "android": {}
   },
-  "name": "JeopardyScorekeeper"
+  "name": "TriviaScorekeeper"
 }

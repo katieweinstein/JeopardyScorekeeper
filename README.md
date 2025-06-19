@@ -15,7 +15,7 @@ npm install
 To test this app on your iPhone, download the Expo Go app. Ensure that your environment and iPhone are connected to the same Wifi network, and then use the following command to start Expo:
 
 ```bash
-expo start
+npx expo start
 ```
 
 Follow the instructions in the terminal or just tap on the project on the Expo Go app.
