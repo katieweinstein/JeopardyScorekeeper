@@ -20,7 +20,10 @@
     "updates": {
       "url": "https://u.expo.dev/05a685b3-db53-4481-859a-e43d8a24c728"
     },
-    "android": {}
+    "android": {},
+    "plugins": [
+      "expo-sqlite"
+    ]
   },
   "name": "TriviaScorekeeper"
 }
