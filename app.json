@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "TriviaScorekeeper",
-    "slug": "TriviaScorekeeper",
+    "slug": "JeopardyScorekeeper",
     "icon": "./images/icon.png",
     "version": "1.0.0",
     "ios": {
